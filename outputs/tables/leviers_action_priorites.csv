@@ -1,0 +1,10 @@
+"Levier","Impact","Controlabilite","Cout_Mise_en_Oeuvre","Score_Priorite","Rang"
+"Motif de visite",4040.29981767844,70,"Moyen",2828.20987237491,1
+"Ville d'origine",6018.79937875616,40,"Élevé",2407.51975150246,2
+"Espace visité",709.089067458978,90,"Moyen",638.18016071308,3
+"Ancienneté usager",178.134917955297,85,"Faible",151.414680262003,4
+"Tranche horaire",120.906205685732,80,"Faible",96.7249645485853,5
+"Jour de la semaine",132.304679586738,60,"Moyen",79.3828077520427,6
+"Âge",241.170909582011,20,"Élevé",48.2341819164022,7
+"Sexe",100.35789047201,30,"Élevé",30.1073671416031,8
+"Durée de visite",50,60,"Moyen",30,9

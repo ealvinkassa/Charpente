@@ -1,0 +1,189 @@
+---
+title: ""
+output:
+  pdf_document:
+    toc: false
+    toc_depth: 3
+    number_sections: true
+    fig_caption: true
+    keep_tex: false
+    latex_engine: xelatex
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    theme: flatly
+    highlight: tango
+    number_sections: true
+    code_folding: hide
+geometry: margin=2.5cm
+fontsize: 11pt
+linkcolor: black
+urlcolor: black
+header-includes:
+  - \usepackage{float}
+  - \usepackage{booktabs}
+  - \usepackage{longtable}
+  - \usepackage{fancyhdr}
+  - \usepackage{pdfpages}
+  - \setlength{\headheight}{14pt}
+  - \pagestyle{fancy}
+  - \fancyhead[R]{\thepage}
+  - \fancyfoot[C]{}
+  - \floatplacement{figure}{H}
+---
+
+```{r initialise, include=FALSE}
+
+# --- 1. OPTIONS KNITR ---
+knitr::opts_chunk$set(
+  echo = FALSE,        # Ne pas afficher le code dans le PDF
+  warning = FALSE, 
+  message = FALSE,
+  fig.width = 8,
+  fig.height = 5,
+  fig.align = 'center',
+  dpi = 300,
+  out.width = "90%"
+)
+
+# Configuration spécifique pour PDF/HTML
+if (knitr::is_latex_output()) {
+  options(knitr.table.format = "latex")
+} else {
+  options(knitr.table.format = "html")
+}
+
+source("scripts/01_configurations.R")
+
+```
+
+
+
+\includepdf{medias/page_de_garde.pdf}
+\newpage
+
+\pagenumbering{gobble}
+\thispagestyle{empty}
+\vspace*{\fill}
+\begin{flushleft}
+\fontsize{11}{13}\selectfont
+\textit{Le Sèmè City Open Park est un lieu de libération. Un espace où l'on désapprend la peur de créer, où l'éducation devient action, et où chaque idée, même fragile, a le droit d'exister. C'est un terrain d'expérimentation, de résilience et de partage, où l'on fait plus avec moins, ensemble. Un endroit où l'Afrique ne se rêve pas en retard, mais se construit, ici et maintenant, par celles et ceux qui osent essayer.}
+\end{flushleft}
+\newpage
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\newpage
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+\tableofcontents
+\newpage
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+
+# Résumé de l'étude
+<!-- Donner la vision d’ensemble, lisible sans lire le reste -->
+
+
+## Vers une qualification des usagers du Sèmè City Open Park
+<!-- Comprendre qui fréquente le lieu, comment et à quel rythme -->
+
+
+## Que faire dès aujourd'hui ?
+<!-- Traduire immédiatement les constats en pistes d’action -->
+
+
+
+\newpage
+
+# Introduction
+<!-- Poser le contexte, l’enjeu humain et la question centrale -->
+
+
+# Méthodologie de l'étude
+<!-- Expliquer comment la donnée a été transformée en connaissance -->
+
+
+
+## Sources de données utilisées
+<!-- Origine, volume et nature des données -->
+
+
+
+## Construction de la base de travail
+<!-- Choix des variables, identifiants, consolidation -->
+
+
+
+
+## Nettoyage des données
+<!-- 
+Nettoyage des entités HTML, Harmonisation des variables qualitatives, Panelisation (jour / usagers), Feature engineering (variables temporelles, récurrence)
+-->
+
+### Nettoyage des entités HTML
+
+### Harmonisation des variables qualitatives
+<!-- Distance de chaines (méthode ) -->
+
+
+### Panelisation (jour / usagers)
+
+### Feature engineering
+
+
+
+## Traitement des valeurs manquantes (NA)
+
+## Packages et librairies
+
+
+
+\newpage
+
+# Présentation du Sèmè City Open Park
+
+# Orientation stratégique de l'analyse
+
+
+
+\newpage
+
+# Cartographie de la fréquentation du Sèmè City Open Park
+
+
+
+\newpage
+
+# Discussion : Hypothèses et Résultats
+
+
+
+\newpage
+
+# Préconisations Stratégiques
+
+
+
+\newpage
+
+# Limites de l'Étude
+
+
+
+\newpage
+
+# Conclusion et Synthèse
+
+# Sources
+
+
+
+\newpage
+
+
