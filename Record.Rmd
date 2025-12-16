@@ -54,7 +54,7 @@ if (knitr::is_latex_output()) {
   options(knitr.table.format = "html")
 }
 
-source("scripts/01_configurations.R")
+source("main.R")
 
 ```
 
@@ -102,59 +102,357 @@ source("scripts/01_configurations.R")
 \newpage
 
 # Introduction
-<!-- Poser le contexte, l’enjeu humain et la question centrale -->
+
+Un tiers lieu comme le Sèmè City Open Park ne vit pas uniquement de ses infrastructures, de ses machines ou de ses programmes. Il vit avant tout de celles et ceux qui le traversent, qui s’y arrêtent, qui partent et qui y reviennent… Depuis son ouverture au public en avril 2022, le Sèmè City Open Park a vu défiler une grande diversité de profils. Certains viennent d'abord par curiosité, d’autres par nécessité. Mais après quelques jours à vivre cette expérience qui n'existe nulle part ailleurs en ce monde, quelques-uns finissent par rester. Cette pluralité est une force, mais elle rend difficile toute lecture intuitive des dynamiques de fréquentation. En effet, ce que l’on croit percevoir à l’œil nu ne reflète pas toujours la réalité des usages.
+
+Améliorer la fréquentation d’un tel espace ne consiste donc pas simplement à augmenter des chiffres. C’est une démarche plus profonde, qui interroge le rapport entre un lieu et ses usagers, entre une promesse et son appropriation réelle. Dans ce contexte, la donnée devient une mémoire silencieuse. Elle conserve les traces des passages, des habitudes, des absences. Encore faut-il savoir l’écouter, la nettoyer, la structurer et l’interpréter. C’est précisément l’ambition de ce travail, articulé autour de la question suivante : comment améliorer la fréquentation du Sèmè City Open Park à partir de l’analyse des données d’usage disponibles ?
+
+Pour y répondre, cette étude mobilise une démarche rigoureuse d’analyse de données, allant du nettoyage avancé des bases existantes à leur enrichissement par des variables temporelles et comportementales. L’objectif n’est pas uniquement de regarder en arrière, mais de faire émerger des signaux utiles pour l’action, capables d’éclairer les décisions stratégiques à venir.
 
 
 # Méthodologie de l'étude
 <!-- Expliquer comment la donnée a été transformée en connaissance -->
 
+Comprendre la fréquentation du Sèmè City Open Park ne peut heuresement se faire à partir d’une seule photographie figée. Il a fallu retrousser ses manches, collecter de la matière brute, très imparfaite et fragmentée, que constituent les données. Nos choix méthodologiques ont été fait pour respecter la réalité du lieu telle qu’elle est vécue, tout en lui donnant une forme analytique exploitable.
 
 
 ## Sources de données utilisées
 <!-- Origine, volume et nature des données -->
 
+```{r}
+
+n_obs_data_presence_raw <- nrow(data_presences_raw)
+n_vars_data_presence_raw <- ncol(data_presences_raw)
+
+n_obs_data_usagers_raw <- nrow(data_usagers_raw)
+n_vars_data_usagers_raw <- ncol(data_usagers_raw)
+
+```
+
+Cette étude repose sur 03 sources de données principales. La première, SmartSCOP, un logiciel interne au SCOP qui nous aide à retracer les flux d'entrée sortie du SCOP. C'est le régistre numérique qu'utilisent les usagers lorsqu'ils visitent le Sèmè City Open Park. De cet outil, nous avons extrait au format excel, deux bases essentielles : 
+
+- data_presences_raw, qui contient contient `r n_obs_data_presence_raw` observations et 
+`r n_vars_data_presence_raw` variables. Ces données renseignent sur les passages mesurés au sein du parc ;
+
+- data_usagers_raw, qui contient contient `r n_obs_data_usagers_raw` observations et 
+`r n_vars_data_usagers_raw` variables. Elle renseigne sur les usagers qui fréquentent le SCOP ;
+
+Prises isolément, ces sources offrent une vision partielle. Croisées et harmonisées, elles deviennent une mémoire collective du lieu.
 
 
-## Construction de la base de travail
-<!-- Choix des variables, identifiants, consolidation -->
-
-
-
-
-## Nettoyage des données
+## Nettoyage et transformation des données
 <!-- 
 Nettoyage des entités HTML, Harmonisation des variables qualitatives, Panelisation (jour / usagers), Feature engineering (variables temporelles, récurrence)
 -->
 
 ### Nettoyage des entités HTML
 
+Les enrégistrement sur les espaces visités par les usagers dans la base de données de présence, de même que les motifs de visite présentaient des traces techniques, notamment des entités HTML parasites (comme `&amp;` pour -) issues des outils de saisie. Certains caractères spéciaux comme les accents, les tierts, apostrophes, étaient donc camouflés derrière ces entités parasites. Nous avons donc créé une fonction qui détectait différents types d'entités et les remplaçaient par le caractère correspondant en encodage UTF-8.
+
+Leur suppression a constitué une étape essentielle pour restaurer la lisibilité des informations et éviter toute distorsion dans les analyses ultérieures. Ce travail minutieux a permis de fiabiliser plusieurs milliers d’enregistrements et de réduire significativement le bruit dans les variables textuelles dans les bases de données brutes.
+
 ### Harmonisation des variables qualitatives
 <!-- Distance de chaines (méthode ) -->
 
+Sur des variables comme l'université d'appartenance, le profil ou même la ville de résidence dans la base de données des usagers, une même information pouvait être orthographiée différemment, abrégée ou saisie de manière approximative. Pour répondre à cette hétérogénéité des données, des techniques de distance de chaînes de Jaro-Winkler et de vérification d’acronymes ont été mobilisées.
 
-### Panelisation (jour / usagers)
+Pour rappel, la distance de chaîne (ou distance d'édition) mesure la similarité entre deux chaînes de caractères en comptant le nombre minimal d'opérations nécessaires pour transformer l'une en l'autre. La méthode de Jaro-Winkler employée ici donne plus de poids aux correspondances au début de la chaîne (utile pour les noms), qui était l'idéale pour les données en présence (nom d'universités, de compétences, de profils). C'est un outil puissant pour gérer les erreurs de saisie, les variations d'orthographe ou les approximations dans les données textuelles.
+
+Le tableau ci-dessous présente les résultats de l'harmonisation des variables textuelles de la base `data_usagers`. Valeurs indiquent le nombre de valeurs uniques détectées avant et après harmonisation.
+
+```{r, echo=FALSE}
+# Créer le tableau récapitulatif
+harmonization_summary <- tibble(
+  Variable = c("Université", "Ville", "Profil", "Filière d'étude"),
+  `Valeurs avant` = c(287, 141, 515, 391),
+  `Valeurs après` = c(181, 108, 342, 252),
+  `Réduction` = c(106, 33, 173, 139),
+  `Equivalence (%)` = c(36.9, 23.4, 33.6, 35.5)
+)
+
+# Afficher le tableau avec kable
+library(kableExtra)
+
+kable(harmonization_summary, format = "pipe", caption = "Résultats de l'harmonisation des variables textuelles")
+```
+
+L'harmonisation a donc permis de réduire significativement le nombre de variations pour chaque variable, avec une réduction moyenne de `r round(mean(harmonization_summary$'Equivalence (%)'), 1)`% des valeurs uniques. La variable la plus impactée est l'université avec une réduction de `r harmonization_summary$'Equivalence (%)'[1]`%, tandis que la ville présente le taux le plus faible à `r harmonization_summary$'Equivalence (%)'[2]`%.
+
+### Clé d'identification des usagers
+
+Après observations de la base de donnée des présences, le numéro de téléphone a été retenu comme clé principale d’identification des usagers, car il constitue l’information la plus stable et la plus fréquemment renseignée. Ce choix, ancré dans la réalité opérationnelle du terrain, a permis de relier efficacement les informations de présences aux usagers uniques qui les génèrent.
+
+### Panelisation des tables
+
+Afin de capter la dynamique temporelle de la fréquentation, les données ont été panelisées selon deux axes complémentaires :
+
+- un panel journalier, permettant d’observer l’évolution de la fréquentation dans le temps ;
+
+- un panel par usager, permettant de reconstituer des comportements individuels propres à chacun.
+
+Cette double lecture a révélé que la fréquentation est loin d’être linéaire. Certains jours concentrent une activité très élevée, tandis que d’autres restent en retrait. De la même manière, quelques usagers concentrent une part importante des passages, illustrant un phénomène classique de type longue traîne que nous détaillerons dans la cartographie de la fréquentation du SCOP.
 
 ### Feature engineering
 
+Pour dépasser une lecture brute des présences, un travail d’enrichissement a été mené à travers la création de nouvelles variables :
+
+- des variables temporelles (jour de la semaine, effets calendaires) ;
+- des indicateurs de récurrence ;
+- des moyennes flottantes permettant de lisser les variations quotidiennes.
+
+Ces features ont joué un rôle clé dans l’analyse. Par exemple, certaines variables temporelles expliquent à elles seules plus d’un tiers de la variabilité observée dans la fréquentation, confirmant le rôle central des rythmes hebdomadaires et organisationnels.
+
+
+## Construction de la base de données d'analyse
+<!-- Choix des variables, identifiants, consolidation -->
+
+Après un nettoyage approfondi et une harmonisation des variables textuelles par détection d'acronymes et calcul de distance de chaînes, ces deux bases ont été fusionnées par numéro de téléphone avec un taux de correspondance de 100% (`r nrow(data_usagers_comportement)` téléphones correspondants). Cette jointure a permis de créer deux bases de travail complémentaires. 
+
+La première, `data_frequentation`, contient `r nrow(data_frequentation)` observations correspondant aux visites individuelles enrichies des informations de profil (âge, université, filière, etc.) et des variables calculées (durée de visite, ancienneté journalière). Cette base présente un taux de complétude élevé, avec seulement 0,3% de valeurs manquantes pour les variables de flux et entre 22,6% et 57,6% pour les variables de profil optionnelles pour les usagers.
+
+La seconde base, `data_usagers_comportement`, agrège ces visites au niveau usager et contient `r nrow(data_usagers_comportement)` individus uniques caractérisés par 30 variables comportementales (nombre de visites, durées moyennes, espaces fréquentés, régularité).
+
+Ces deux bases complémentaires permettent respectivement des analyses au niveau des flux de fréquentation et au niveau des comportements individuels des usagers.
 
 
 ## Traitement des valeurs manquantes (NA)
 
-## Packages et librairies
+Les valeurs manquantes dans les deux bases de données créées présentent des profils distincts liés à leur nature respective. Dans `data_frequentation`, les données manquantes sont principalement concentrées sur les variables de profil optionnelles : `r round(sum(is.na(data_frequentation$field_of_study)) / nrow(data_frequentation) * 100, 1)`% pour la filière d'étude, `r round(sum(is.na(data_frequentation$university)) / nrow(data_frequentation) * 100, 1)`% pour l'université et `r round(sum(is.na(data_frequentation$profile)) / nrow(data_frequentation) * 100, 1)`% pour le profil. Ces valeurs manquantes reflètent le caractère facultatif de ces informations lors de l'inscription des usagers et ne compromettent pas les analyses de flux temporel ou spatial. En revanche, les variables critiques de fréquentation (dates d'arrivée, espaces visités) ne présentent aucune valeur manquante, garantissant l'intégrité des analyses comportementales. Seule la variable `departure_time` affiche un taux de 0,3% de valeurs manquantes, correspondant à des sessions où l'heure de départ n'a pas été enregistrée.
+
+Dans `data_usagers_comportement`, les valeurs manquantes suivent la même logique puisque cette base agrège les informations au niveau usager. Les variables comportementales calculées (nombre de visites, durées moyennes, régularité) ne contiennent aucune valeur manquante car elles sont dérivées directement des enregistrements de présence. Les variables sociodémographiques (âge, sexe, handicap) présentent également un taux de complétude élevé, car elles constituent des informations de base collectées systématiquement.
+
+Le choix a été fait de **conserver toutes les observations** avec leurs valeurs manquantes plutôt que de supprimer des lignes, afin de maximiser la taille de l'échantillon pour les analyses. Les valeurs manquantes seront traitées de manière spécifique selon le type d'analyse : exclusion ponctuelle pour les analyses nécessitant la variable concernée, imputation par la modalité la plus fréquente pour certaines modélisations, ou création d'une catégorie "Non renseigné" pour les analyses descriptives conservant l'information sur le non-renseignement lui-même.
 
 
+## Packages et librairies utilisées
 
-\newpage
+L'analyse de la fréquentation du Sèmè City Open Park s'appuie sur un écosystème de `r length(packages)` packages R spécialisés, couvrant l'ensemble de la chaîne analytique. La manipulation des données repose principalement sur le **tidyverse** (dplyr, tidyr, stringr) complété par **data.table** pour les opérations volumineuses, et **janitor** pour le nettoyage initial. Le traitement des dates et heures utilise **lubridate** et **hms**, essentiels pour l'analyse temporelle de la fréquentation. L'harmonisation des variables textuelles mobilise **stringdist** pour le calcul des distances de chaînes et **fuzzyjoin** pour les jointures approximatives, permettant de réduire les variations orthographiques de 23% à 37% selon les variables.
+
+La phase exploratoire combine **summarytools** pour les statistiques descriptives, **naniar** et **VIM** pour l'analyse des valeurs manquantes, ainsi que **psych** pour les corrélations et les statistiques multivariées. La visualisation s'articule autour de **ggplot2** enrichi de plusieurs extensions : **patchwork** pour l'assemblage de graphiques, **ggridges** pour les distributions temporelles, **viridis** pour les palettes de couleurs accessibles, et **plotly** pour l'interactivité. Les analyses spatiales utilisent **leaflet** pour la cartographie interactive et **rnaturalearth** pour les fonds de carte.
+
+Pour la modélisation prédictive et le machine learning, l'environnement intègre **caret** comme framework unifié, **randomForest** et **xgboost** pour les méthodes ensemblistes, **glmnet** pour la régularisation, et **pROC** pour l'évaluation des performances. L'analyse multivariée repose sur **FactoMineR** et **factoextra** pour les ACP et classifications, tandis que les prévisions temporelles mobilisent **forecast** et **prophet**. L'interprétabilité des modèles est assurée par **pdp** (Partial Dependence Plots), **iml** et **DALEX** pour comprendre les contributions des variables. Enfin, la gestion rigoureuse des conflits de namespace entre packages (notamment entre plyr/dplyr et base/lubridate) est orchestrée par **conflicted**, garantissant la reproductibilité des analyses et évitant les comportements inattendus dans le pipeline de traitement.
+
 
 # Présentation du Sèmè City Open Park
 
+(Commencer un premier paragraphe)
+
+
+La fréquentation du Sèmè City Open Park n’est pas un problème à résoudre, mais une dynamique à lire, à accompagner et à amplifier.
+
+
 # Orientation stratégique de l'analyse
 
+Toute analyse de données implique des choix. Choisir, c’est renoncer.
+Dans le cadre de cette étude, ces choix n’ont pas été dictés par la facilité, mais par une volonté claire : produire une analyse utile, actionnable et alignée avec les enjeux réels du Sèmè City Open Park.
+
+## Durée considérée pour l’analyse
+
+Bien que le SCOP opère des activités depuis avril 2022, l’analyse s’est concentrée sur une période de `r periode$nb_jours_total`, du `r periode$date_debut` au `r periode$date_fin`. Cela correspond à la période d'exploitation de l'outil smartscop, déployé plus tôt cette année.
+
+Ce n'est qu'une goute d'eau dans l'histoire du SCOP, et pas de la meilleure période, je peux vous l'affirmer. Cependant, cette durée permet quand même d’observer :
+
+- des cycles hebdomadaires nets ;
+- des variations saisonnières ;
+- et des phénomènes de récurrence chez certains usagers.
+
+Pourquoi ne pas êtr remonté plus loin ? En réalité, nous dispositions en version papier de plusieurs régistres qui renseignent les flux d'usagers depuis l'ouverture, et d'archives de listes de présence aux activités clés menées sur le site depuis 2022.
+
+Une démarche d'extraction des données a été initiée au moment de mon stage, donnant naissance à une base de données d'activité, que nous avons finalement dû écarter de cette étude.
+
+
+## Suppression de la base de données d’activité
+
+Ce choix peut sembler contre-intuitif. Pourtant, il répond à une logique claire. Premièrement, à peine 38 % des usagers enrégistrés auraient réellement participé aux activités sur cette période. Cela réflète une sous-utilisation de l'outil smartscop, pourtant dédié à la gestion du flux d'usagers. Ce qui aurait généré une perte énorme d'informations en cas de jointures.
+
+De plus, l’objectif de l’étude n'était pas d’évaluer la performance intrinsèque des activités proposées, mais de comprendre les dynamiques globales de fréquentation indépendamment des formats spécifiques.
+
+Intégrer trop tôt la dimension “activité” aurait risqué de brouiller la lecture, en confondant :
+
+- l’effet du lieu,
+- l’effet de la programmation,
+- et l’effet des comportements individuels.
+
+En se concentrant d’abord sur les présences et les comportements d’usagers, l’analyse a pu mettre en évidence des régularités robustes. Ces résultats constituent une base saine sur laquelle des analyses futures, plus ciblées sur les activités, pourront s’appuyer une fois la reconstitution des données complétées.
 
 
 \newpage
 
 # Cartographie de la fréquentation du Sèmè City Open Park
+
+Le Sèmè City Open Park est ouvert au public, du lundi au Samedi, de 09 h à 22 h inclus. Cette année, nous avons enrégistré 14 809 visites, réalisées par 3 540 usagers uniques, sur 245 jours d’observation, dont 209 jours effectivement ouverts, soit un taux d’ouverture de 85 %.
+
+
+## Ampleur et structure de la fréquentation
+
+```{r}
+knitr::include_graphics("outputs/figures/01_frequentation_journaliere.png")
+
+```
+
+
+Le moins que l'on puisse dire, c'est que le rythme de fréquentation au Sèmè City Open Park est très dynamique. Les visites quotidiennes oscillent entre `{r min(data_daily$nb_visites) }` (les jours de fermetture comme le dimanche) et `{r max(data_daily$nb_visites) }` visites par jour, avec une moyenne générale à environ `{r round(mean(data_daily$nb_visites), 0) }` visites par jour.
+
+En prenant un peu de recul, on remarque très vite que, mis bout à bout, ces flux quotidiens génèrent quand même un traffic mensuel assez important, entre 1352 en Aôut contre 2252 le mois précédent.
+
+
+```{r}
+knitr::include_graphics("outputs/figures/02_frequentation_mensuelle.png")
+```
+Ces chiffres traduisent une activité soutenue, mais surtout une fréquentation très inégalement répartie entre les différents individus.
+
+```{r}
+knitr::include_graphics("outputs/figures/17_distribution_nb_visites.png")
+
+```
+
+En effet, l’analyse révèle une structure fortement concentrée :
+
+- 55,9 % des usagers enrégistrés ne sont venus qu’une seule fois ;
+- 7,9 % des usagers génèrent à eux seuls 55,4 % de l’ensemble des visites.
+
+Cette dissymétrie indique que la fréquentation du lieu repose largement sur un noyau réduit d’usagers très engagés, autour duquel gravite une majorité de visiteurs occasionnels.
+
+
+## Rythmes, cycles et contrastes
+
+### Journées les plus fréquentées
+
+La fréquentation du Sèmè City Open Park n’est pas constante. Elle suit des cycles nets, observables à l’échelle mensuelle, hebdomadaire et journalière. Les analyses temporelles montrent que la fréquentation est majoritairement concentrée en semaine, avec 83,6 % des visites, contre 16,4 % le week-end.
+
+```{r}
+knitr::include_graphics("outputs/figures/03_frequentation_jour_semaine.png")
+```
+
+Le vendredi apparaît comme le jour le plus actif, avec 2894 visites cumulées, tandis que le dimanche est de loin le jour le moins fréquenté, avec seulement 95 visites sur l’ensemble de la période. L’écart entre ces deux journées atteint 132 %, illustrant un potentiel d’optimisation considérable.
+
+
+### Horaires et durées des visites
+
+L’analyse des heures d’arrivée montre une fréquentation principalement concentrée entre 9h et 18h, avec un pic des arrivées marqué autour de 10h et une heure moyenne d’arrivée située à 14h.
+
+```{r}
+knitr::include_graphics("outputs/figures/04_distribution_heures_arrivee.png")
+```
+
+Les durées de visite sont particulièrement révélatrices du type d’usage du lieu :
+
+- la durée médiane est de 218 minutes (environ 3h40) ;
+- la durée moyenne atteint 282 minutes (4h42) ;
+- 31,7 % des visites dépassent 6 heures de temps ;
+- seulement 18,1 % des visites durent moins de 60 minutes.
+
+```{r}
+knitr::include_graphics("outputs/figures/08_categories_duree.png")
+```
+
+Ces chiffres montrent que le Sèmè City Open Park n’est pas un lieu de passage rapide, mais un lieu d’ancrage, où les usagers s’installent dans le temps.
+
+## Utilisation de l'espace : concentrations et déséquilibres
+
+Le Sèmè City Open Park compte 29 espaces actifs, mais leur fréquentation est loin d’être homogène. Les résultats montrent une forte concentration sur très peu d'espaces :
+
+- les 3 espaces les plus fréquentés concentrent 51,8 % des visites ;
+- le Rooftop, à lui seul, totalise 3622 visites, ce qui en fait l’espace le plus attractif du site.
+
+```{r}
+knitr::include_graphics("outputs/figures/11_top_espaces.png")
+```
+
+À l’inverse, 11 espaces sont identifiés comme sous-utilisés, avec moins de 50 visites chacun, représentant au total seulement 0,6 % de la fréquentation globale.
+
+Cette répartition suggère que l’amélioration de la fréquentation ne passe pas uniquement par l’acquisition de nouveaux usagers, mais aussi par une meilleure répartition des flux internes.
+
+## Profil démographique des usagers
+
+### Le sexe masculin domine sur le parc
+
+Le parc présente une forte disparité de genre avec une prédominance masculine marquée. Les hommes représentent 75,1% des usagers contre 24,9% pour les femmes, soit un ratio de 3:1. Cette asymétrie pose la question de l'attractivité différenciée du parc selon le genre et suggère des axes d'amélioration pour diversifier le public.
+
+
+### L'utilisateur moyen a 25 ans
+
+La population du parc est majoritairement jeune avec un âge médian de 23 ans et une moyenne de 24 ans. La distribution révèle une forte concentration dans la tranche 20-24 ans qui représente à elle seule 50,2% des usagers.
+
+```{r}
+knitr::include_graphics("outputs/figures/09_pyramide_ages.png")
+```
+
+Cette caractéristique s'explique par la proximité d'établissements universitaires, notamment Epitech, Africa DEsign School et l'Université d'Abomey-Calavi (UAC), qui constituent le principal réservoir d'usagers.
+
+
+### Il réside à Cotonou et ses environs
+
+Les usagers du Sèmè City Open Park proviennent de 108 villes différentes, mais cette diversité est très concentrée :
+
+- les 5 premières villes représentent 93,6 % des visites,
+- la ville de Cotonou concentre à elle seule 55,7 % des visites.
+
+```{r}
+knitr::include_graphics("outputs/figures/13_top_villes.png")
+```
+
+L’indice de concentration géographique (HHI = 0,4284) confirme un ancrage territorial très marqué, avec une faible diffusion géographique actuelle.
+
+### Il est étudiant en informatique et technologies numériques
+
+287 établissements différents sont recensés, témoignant d'une diversité remarquable. Cependant, le taux de renseignement de 44,2% indique qu'une part importante des usagers ne déclare pas leur affiliation, ce qui peut biaiser l'analyse.
+
+La distribution des domaines d'étude reflète la vocation technologique et innovante du parc. Avec 391 domaines différents recensés (réduits à 252 après harmonisation), la diversité disciplinaire est remarquable, bien que le taux de renseignement de 42,4% limite la portée de cette analyse.
+
+### Ses motivations sont très personnelles
+
+Le travail personnel est le motif le plus utilisé par les usagers du Sèmè City Open Park, qui bénéficient sans doute de l'expérience SCOP : un kit de démarrage dans le parc, où ils peuvent accéder à un espace de travail libre et confortable, de l'électricité et une connexion internet.
+
+## Un comportement hétérogène
+
+### Segmentation par fréquence de visite
+
+La segmentation comportementale des usagers permet d’identifier quatre profils principaux de visiteurs :
+
+- Les Occasionnels (1 visite) : 1978 usagers (55,9 %)
+- Les Explorateurs (2–5 visites) : 1050 usagers (29,7 %)
+- Les Réguliers (6–10 visites) : 233 usagers (6,6 %)
+- Les Fidèles (11+ visites) : 279 usagers (7,9 %)
+
+Malgré leur faible proportion, les usagers fidèles génèrent plus de la moitié des visites totales, avec une durée moyenne par visite de 290 minutes et un score d’engagement maximal.
+
+### Ancienneté et fidélisation
+
+L’analyse de l’ancienneté montre une fragilité importante de la rétention :
+
+- 56,7 % des usagers n’ont qu’un jour d’ancienneté (une seule visite) ;
+- 73,4 % des usagers ont une ancienneté inférieure à 30 jours ;
+- seuls 16,3 % dépassent 90 jours d’ancienneté.
+
+Par ailleurs, 24,5 % des visites sont effectuées le jour même de l’inscription, confirmant le caractère critique et déterminant de la première expérience pour la suite.
+
+### Préférences au niveau des espaces
+
+L'analyse des comportements individuels révèle une faible mobilité inter-espaces :
+
+- 70,3% des usagers fréquentent un seul espace (mono-espace) ;
+- 25,4% utilisent 2 à 3 espaces ;
+- 4,3% diversifient leur usage sur 4 espaces ou plus.
+
+Cette concentration pose question sur la découvrabilité et la polyvalence de l'offre. Les usagers mono-espace représentent un potentiel de diversification considérable : 2 489 usagers pourraient être incités à explorer d'autres espaces.
+
+
+## En résumé
+
+La cartographie de la fréquentation met en évidence quatre enseignements structurants :
+
+- La fréquentation est massivement concentrée sur un noyau réduit d’usagers engagés.
+- Les rythmes temporels jouent un rôle déterminant, avec des écarts très forts entre jours et horaires.
+- Les espaces ne contribuent pas de manière équivalente à l’attractivité du lieu.
+- La première visite constitue un moment critique dans la trajectoire d’engagement.
+
+Ces constats structurent directement les hypothèses analysées dans la section suivante et fondent les préconisations stratégiques formulées ultérieurement.
+
+
+# Milles et un facteurs d'influence
+
+
 
 
 
