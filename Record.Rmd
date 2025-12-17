@@ -60,16 +60,29 @@ source("main.R")
 
 
 
-\includepdf{medias/page_de_garde.pdf}
+\includepdf[
+  pages=1,
+  scale=1,
+  pagecommand={\thispagestyle{empty}},
+  offset=0 0
+]{medias/page_de_garde.pdf}
 \newpage
 
 \pagenumbering{gobble}
 \thispagestyle{empty}
 \vspace*{\fill}
+
+\begin{center}
+  \includegraphics{medias/manifeste.png}
+\end{center}
+
+\vspace{1cm}
+
 \begin{flushleft}
 \fontsize{11}{13}\selectfont
 \textit{Le Sèmè City Open Park est un lieu de libération. Un espace où l'on désapprend la peur de créer, où l'éducation devient action, et où chaque idée, même fragile, a le droit d'exister. C'est un terrain d'expérimentation, de résilience et de partage, où l'on fait plus avec moins, ensemble. Un endroit où l'Afrique ne se rêve pas en retard, mais se construit, ici et maintenant, par celles et ceux qui osent essayer.}
 \end{flushleft}
+
 \newpage
 
 \pagenumbering{arabic}
@@ -83,20 +96,20 @@ source("main.R")
 \newpage
 
 \pagenumbering{arabic}
-\setcounter{page}{1}
+\setcounter{page}{6}
 
 
 # Résumé de l'étude
 
 <!-- Donner la vision d’ensemble, lisible sans lire le reste -->
 
-Cette étude vise à comprendre et à améliorer la fréquentation du Sèmè City Open Park à partir de l’analyse des données d’usage disponibles. Elle repose sur l’exploitation des données issues de Smart SCOP, couvrant 14 809 visites réalisées par 3 540 usagers uniques sur 209 jours d’ouverture.
+Cette étude vise à comprendre et à améliorer la fréquentation du Sèmè City Open Park à partir de l’analyse des données d’usage disponibles. Elle repose sur l’exploitation des données issues du logiciel de gestion de flux SMART SCOP, couvrant 14 809 visites réalisées par 3 540 usagers uniques sur 209 jours d’ouverture.
 
 L’analyse montre que la fréquentation du SCOP n’est ni aléatoire ni uniquement conditionnée par les infrastructures ou la programmation. Elle est structurée par des dynamiques internes fortes : un noyau réduit d’usagers très engagés, des rythmes temporels marqués, une attractivité spatiale inégale et un point de bascule décisif situé dès la première visite.
 
 En mobilisant des analyses descriptives, comportementales et une modélisation multivariée (Random Forest expliquant près de 70 % de la variance observée), l’étude identifie des facteurs d’influence hiérarchisés, majoritairement maîtrisables par le parc. Ces résultats permettent de formuler des préconisations stratégiques concrètes, orientées vers l’activation de l’existant plutôt que la croissance externe.
 
-L’enjeu principal n’est pas d’attirer toujours plus d’usagers, mais de mieux accueillir, mieux orienter et mieux fidéliser ceux qui franchissent déjà les portes du Sèmè City Open Park.
+L’enjeu principal n’est donc pas d’attirer toujours plus d’usagers, mais de mieux accueillir, mieux orienter et mieux fidéliser ceux qui franchissent déjà les portes du Sèmè City Open Park.
 
 
 ## Vers une qualification des usagers du Sèmè City Open Park
@@ -107,7 +120,7 @@ L’analyse met en évidence une fréquentation très hétérogène, tant dans s
 
 La majorité des usagers (55,9 %) ne visitent le parc qu’une seule fois, tandis qu’une minorité restreinte (7,9 %) génère à elle seule plus de la moitié des visites totales. Cette structure en longue traîne révèle une dépendance forte à un noyau d’usagers engagés, autour duquel gravite une population majoritairement occasionnelle.
 
-Les usages observés montrent également que le SCOP est avant tout un lieu d’ancrage : la durée moyenne d’une visite dépasse 4 h 30, et près d’un tiers des visites excèdent 6 heures. La fréquentation est principalement concentrée en semaine et sur quelques espaces clés, tandis que de nombreux espaces et créneaux horaires restent sous-utilisés.
+Les usages observés montrent également que le SCOP est avant tout un lieu d’ancrage : la durée moyenne d’une visite dépasse 4 h 30, et près d’un tiers des visites excèdent 6 heures. La fréquentation est principalement concentrée en semaine et sur quelques espaces clés comme le Rooftop, tandis que de nombreux espaces et créneaux horaires restent sous-utilisés.
 
 Sur le plan des profils, l’usager moyen est jeune (environ 25 ans), majoritairement masculin, étudiant dans les domaines du numérique et résidant à Cotonou ou dans ses environs. Toutefois, les caractéristiques sociodémographiques expliquent peu la fréquentation une fois les dynamiques internes prises en compte.
 
@@ -117,8 +130,7 @@ Enfin, la première visite apparaît comme un moment critique : plus d’un usag
 ## Que faire dès aujourd'hui ?
 <!-- Traduire immédiatement les constats en pistes d’action -->
 
-Les enseignements issus de l’analyse convergent vers un constat clair :
-les leviers d’amélioration de la fréquentation sont internes, actionnables et peu coûteux.
+Les renseignements issus de l’analyse convergent vers un constat clair : les leviers d’amélioration de la fréquentation sont internes, actionnables et à priori peu coûteux.
 
 Trois axes prioritaires peuvent être activés immédiatement :
 
@@ -138,17 +150,21 @@ Les simulations montrent qu’en combinant ces actions, le parc pourrait théori
 
 # Introduction
 
-Un tiers lieu comme le Sèmè City Open Park ne vit pas uniquement de ses infrastructures, de ses machines ou de ses programmes. Il vit avant tout de celles et ceux qui le traversent, qui s’y arrêtent, qui partent et qui y reviennent… Depuis son ouverture au public en avril 2022, le Sèmè City Open Park a vu défiler une grande diversité de profils. Certains viennent d'abord par curiosité, d’autres par nécessité. Mais après quelques jours à vivre cette expérience qui n'existe nulle part ailleurs en ce monde, quelques-uns finissent par rester. Cette pluralité est une force, mais elle rend difficile toute lecture intuitive des dynamiques de fréquentation. En effet, ce que l’on croit percevoir à l’œil nu ne reflète pas toujours la réalité des usages.
+Un tiers lieu comme le Sèmè City Open Park ne vit pas uniquement de ses infrastructures, de ses machines ou de ses programmes. Il vit avant tout de celles et ceux qui le traversent, qui s’y arrêtent, qui partent et qui y reviennent… Depuis son ouverture au public en avril 2022, le Sèmè City Open Park a vu défiler une grande diversité de profils. Certains viennent d'abord par curiosité, d’autres par nécessité. Mais après quelques jours à vivre cette expérience qui n'existe nulle part ailleurs au Bénin, quelques-uns finissent par rester. Cette pluralité est une force, mais elle rend difficile toute lecture intuitive des dynamiques de fréquentation. En effet, ce que l’on croit percevoir à l’œil nu ne reflète pas toujours la réalité des usages.
 
-Améliorer la fréquentation d’un tel espace ne consiste donc pas simplement à augmenter des chiffres. C’est une démarche plus profonde, qui interroge le rapport entre un lieu et ses usagers, entre une promesse et son appropriation réelle. Dans ce contexte, la donnée devient une mémoire silencieuse. Elle conserve les traces des passages, des habitudes, des absences. Encore faut-il savoir l’écouter, la nettoyer, la structurer et l’interpréter. C’est précisément l’ambition de ce travail, articulé autour de la question suivante : comment améliorer la fréquentation du Sèmè City Open Park à partir de l’analyse des données d’usage disponibles ?
+```{r}
+knitr::include_graphics("medias/introduction.jpg")
+```
 
-Pour y répondre, cette étude mobilise une démarche rigoureuse d’analyse de données, allant du nettoyage avancé des bases existantes à leur enrichissement par des variables temporelles et comportementales. L’objectif n’est pas uniquement de regarder en arrière, mais de faire émerger des signaux utiles pour l’action, capables d’éclairer les décisions stratégiques à venir.
+Améliorer la fréquentation d’un tel espace ne consiste donc pas simplement à augmenter ses chiffres. C’est une démarche plus profonde, qui interroge le rapport entre un lieu et ses usagers, entre une promesse et son appropriation réelle. Dans ce contexte, la donnée devient une mémoire silencieuse. Elle conserve les traces des passages, des habitudes, des absences. Encore faut-il savoir l’écouter, la nettoyer, la structurer et l’interpréter. C’est précisément l’ambition de ce travail, articulé autour de la question suivante : comment améliorer la fréquentation du Sèmè City Open Park à partir de l’analyse des données d’usage disponibles ?
+
+Pour y répondre, cette étude mobilise une démarche rigoureuse d’analyse de données, allant du nettoyage avancé des bases existantes à leur enrichissement par des variables temporelles et comportementales. L’objectif n’est pas uniquement de regarder en arrière, mais de faire émerger des signaux utiles pour l’action, des signaux capables d’éclairer les décisions stratégiques à venir.
 
 
 # Méthodologie de l'étude
 <!-- Expliquer comment la donnée a été transformée en connaissance -->
 
-Comprendre la fréquentation du Sèmè City Open Park ne peut heuresement se faire à partir d’une seule photographie figée. Il a fallu retrousser ses manches, collecter de la matière brute, très imparfaite et fragmentée, que constituent les données. Nos choix méthodologiques ont été fait pour respecter la réalité du lieu telle qu’elle est vécue, tout en lui donnant une forme analytique exploitable.
+Comprendre la fréquentation du Sèmè City Open Park ne peut heuresement se faire à partir d’une seule photographie figée. Il a fallu retrousser ses manches, collecter de la matière brute, très imparfaite et fragmentée. Nos choix méthodologiques ont été fait pour respecter la réalité du lieu telle qu’elle est vécue, tout en lui donnant une forme analytique exploitable.
 
 
 ## Sources de données utilisées
@@ -164,7 +180,7 @@ n_vars_data_usagers_raw <- ncol(data_usagers_raw)
 
 ```
 
-Cette étude repose sur 03 sources de données principales. La première, SmartSCOP, un logiciel interne au SCOP qui nous aide à retracer les flux d'entrée sortie du SCOP. C'est le régistre numérique qu'utilisent les usagers lorsqu'ils visitent le Sèmè City Open Park. De cet outil, nous avons extrait au format excel, deux bases essentielles : 
+Cette étude repose sur 03 sources de données principales. La première, SMART SCOP, un logiciel interne au SCOP qui nous aide à retracer les flux d'entrée sortie du SCOP. C'est le régistre numérique qu'utilisent les usagers lorsqu'ils visitent le Sèmè City Open Park. De cet outil, nous avons extrait au format excel, deux bases essentielles : 
 
 - data_presences_raw, qui contient contient `r n_obs_data_presence_raw` observations et 
 `r n_vars_data_presence_raw` variables. Ces données renseignent sur les passages mesurés au sein du parc ;
@@ -182,7 +198,7 @@ Nettoyage des entités HTML, Harmonisation des variables qualitatives, Panelisat
 
 ### Nettoyage des entités HTML
 
-Les enrégistrement sur les espaces visités par les usagers dans la base de données de présence, de même que les motifs de visite présentaient des traces techniques, notamment des entités HTML parasites (comme `&amp;` pour -) issues des outils de saisie. Certains caractères spéciaux comme les accents, les tierts, apostrophes, étaient donc camouflés derrière ces entités parasites. Nous avons donc créé une fonction qui détectait différents types d'entités et les remplaçaient par le caractère correspondant en encodage UTF-8.
+Les enrégistrement sur les espaces visités par les usagers dans la base de données de présence, de même que les motifs de visite présentaient des traces techniques, notamment des entités HTML parasites (comme `&amp;` pour `-`) issues des outils de saisie. Certains caractères spéciaux comme les accents, les tierts, apostrophes, étaient donc camouflés derrière ces entités parasites. Nous avons donc créé une fonction qui détectait différents types d'entités HTML et les remplaçaient par le caractère correspondant en encodage `UTF-8`.
 
 Leur suppression a constitué une étape essentielle pour restaurer la lisibilité des informations et éviter toute distorsion dans les analyses ultérieures. Ce travail minutieux a permis de fiabiliser plusieurs milliers d’enregistrements et de réduire significativement le bruit dans les variables textuelles dans les bases de données brutes.
 
@@ -193,7 +209,7 @@ Sur des variables comme l'université d'appartenance, le profil ou même la vill
 
 Pour rappel, la distance de chaîne (ou distance d'édition) mesure la similarité entre deux chaînes de caractères en comptant le nombre minimal d'opérations nécessaires pour transformer l'une en l'autre. La méthode de Jaro-Winkler employée ici donne plus de poids aux correspondances au début de la chaîne (utile pour les noms), qui était l'idéale pour les données en présence (nom d'universités, de compétences, de profils). C'est un outil puissant pour gérer les erreurs de saisie, les variations d'orthographe ou les approximations dans les données textuelles.
 
-Le tableau ci-dessous présente les résultats de l'harmonisation des variables textuelles de la base `data_usagers`. Valeurs indiquent le nombre de valeurs uniques détectées avant et après harmonisation.
+Le tableau ci-dessous présente les résultats de l'harmonisation des variables textuelles de la base `data_usagers`. « Valeurs » indique le nombre de valeurs uniques détectées avant et après harmonisation.
 
 ```{r, echo=FALSE}
 # Créer le tableau récapitulatif
@@ -208,7 +224,15 @@ harmonization_summary <- tibble(
 # Afficher le tableau avec kable
 library(kableExtra)
 
-kable(harmonization_summary, format = "pipe", caption = "Résultats de l'harmonisation des variables textuelles")
+kable(
+  harmonization_summary,
+  format = "pipe",
+  caption = "Résultats de l'harmonisation des variables textuelles") %>%
+  kable_styling(
+    latex_options = "hold_position",
+    full_width = FALSE,
+    position = "center"
+  )
 ```
 
 L'harmonisation a donc permis de réduire significativement le nombre de variations pour chaque variable, avec une réduction moyenne de `r round(mean(harmonization_summary$'Equivalence (%)'), 1)`% des valeurs uniques. La variable la plus impactée est l'université avec une réduction de `r harmonization_summary$'Equivalence (%)'[1]`%, tandis que la ville présente le taux le plus faible à `r harmonization_summary$'Equivalence (%)'[2]`%.
@@ -245,7 +269,7 @@ Après un nettoyage approfondi et une harmonisation des variables textuelles par
 
 La première, `data_frequentation`, contient `r nrow(data_frequentation)` observations correspondant aux visites individuelles enrichies des informations de profil (âge, université, filière, etc.) et des variables calculées (durée de visite, ancienneté journalière). Cette base présente un taux de complétude élevé, avec seulement 0,3% de valeurs manquantes pour les variables de flux et entre 22,6% et 57,6% pour les variables de profil optionnelles pour les usagers.
 
-La seconde base, `data_usagers_comportement`, agrège ces visites au niveau usager et contient `r nrow(data_usagers_comportement)` individus uniques caractérisés par 30 variables comportementales (nombre de visites, durées moyennes, espaces fréquentés, régularité).
+La seconde base, `data_usagers_comportement`, agrège ces visites au niveau usager et contient `r nrow(data_usagers_comportement)` individus uniques caractérisés par 30 variables comportementales (nombre de visites, durées moyennes, espaces fréquentés, régularité, etc).
 
 Ces deux bases complémentaires permettent respectivement des analyses au niveau des flux de fréquentation et au niveau des comportements individuels des usagers.
 
@@ -268,22 +292,42 @@ La phase exploratoire combine **summarytools** pour les statistiques descriptive
 Pour la modélisation prédictive et le machine learning, l'environnement intègre **caret** comme framework unifié, **randomForest** et **xgboost** pour les méthodes ensemblistes, **glmnet** pour la régularisation, et **pROC** pour l'évaluation des performances. L'analyse multivariée repose sur **FactoMineR** et **factoextra** pour les ACP et classifications, tandis que les prévisions temporelles mobilisent **forecast** et **prophet**. L'interprétabilité des modèles est assurée par **pdp** (Partial Dependence Plots), **iml** et **DALEX** pour comprendre les contributions des variables. Enfin, la gestion rigoureuse des conflits de namespace entre packages (notamment entre plyr/dplyr et base/lubridate) est orchestrée par **conflicted**, garantissant la reproductibilité des analyses et évitant les comportements inattendus dans le pipeline de traitement.
 
 
-# Présentation du Sèmè City Open Park
+# Bienvenu au Sèmè City Open Park
 
-(Commencer un premier paragraphe)
+Sèmè City est l'un des projets phares du gouvernement béninois qui entend développer une économie du savoir dynamique et inclusive. Sèmè City se positionne comme un hub incontournable dédié à la formation, la recherche et l'innovation ainsi qu'à l'incubation et la création d'entreprises innovantes. Le Bénin souhaite ainsi former une nouvelle génération de talents, les équiper pour l'avenir et favoriser un modèle de croissance inclusive et durable fondé sur « l' innovation Made in Africa (IMA) ».
+
+Sèmè City est conçu et mis en œuvre par I' Agence de Développement de Sèmè City (ADSC), établissement public doté de la personnalité morale et de l'autonomie financière. L'ADSC développe un cadre favorable et attractif pour différent.e.s opérateur.trice.s et partenaires dans le but de construire cet écosystème d'innovation, créateur de richesses et d'emplois. L'objectif d'ici 2030 est de créer plus de 100000 emplois, dont plus d'un tiers d'auto-emplois et 40% par des femmes.
 
 
-La fréquentation du Sèmè City Open Park n’est pas un problème à résoudre, mais une dynamique à lire, à accompagner et à amplifier.
+```{r}
+knitr::include_graphics("medias/5Y6A4442.jpg")
+```
+
+Situé à quelques pas du campus principal Sèmè One, le SCOP (Sèmè City Open Park) est un espace d'innovation ouvert de 2 500 m2, conçu pour démocratiser l'accès à la recherche, à l'expérimentation et à la fabrication numérique. Il offre un environnement dynamique favorisant l'apprentissage, le prototypage et la collaboration, accessible dès l'âge de 8 ans.
+
+Construit à partir de containers maritimes recyclés, le SCOP incarne une approche durable et modulable de l'innovation. Il met à disposition une large gamme d'outils technologiques avancés, incluant un parc de fabrication et de prototypage rapide (impression 3D, découpe laser, électronique/lOT), ainsi qu'un laboratoire spécialisé dans les techniques du rayonnement X.
+Bien plus qu'un espace technique, le SCOP est un véritable hub de créativité et d'échange destiné à un public varié : lycéens, étudiants, chercheurs, entrepreneurs, entreprises, artisans, bricoleurs et makers issus du secteur formel et informel. Ce lieu favorise la montée en compétence et la matérialisation d'idées innovantes en nouveaux produits et solutions.
+
+
+```{r}
+knitr::include_graphics("medias/3d_workshop.JPG")
+```
+
+Le SCOP repose sur trois piliers fondamentaux :
+- Démocratisation des nouvelles technologies : Sensibiliser et former à la Conception Assistée par Ordinateur (CAO/FAO) à travers des ateliers interactifs et des démonstrations, accessibles dès 8 ans.
+- Prototypage numérique et fabrication rapide : Accompagner les porteurs de projets dans la transformation d'idées en prototypes fonctionnels grâce à un accès aux équipements de pointe.
+- Communauté et collaboration : Favoriser les échanges entre innovateurs de tous horizons, en créant un écosystème de partage via des espaces de coworking, des événements et des rencontres inspirantes.
+
+À travers ces initiatives, le SCOP s'affirme comme un catalyseur de l'innovation Made in Africa, offrant aux talents locaux les moyens de concevoir, d'expérimenter et d'inventer les solutions de demain. La fréquentation du Sèmè City Open Park n’est donc pas un problème à résoudre, mais une dynamique à lire, à accompagner et à amplifier.
 
 
 # Orientation stratégique de l'analyse
 
-Toute analyse de données implique des choix. Choisir, c’est renoncer.
-Dans le cadre de cette étude, ces choix n’ont pas été dictés par la facilité, mais par une volonté claire : produire une analyse utile, actionnable et alignée avec les enjeux réels du Sèmè City Open Park.
+Toute analyse de données implique des choix. Et choisir, c’est renoncer. Dans le cadre de cette étude, ces choix n’ont pas été dictés par la facilité, mais par une volonté claire : produire une analyse utile, actionnable et alignée avec les enjeux réels du Sèmè City Open Park.
 
 ## Durée considérée pour l’analyse
 
-Bien que le SCOP opère des activités depuis avril 2022, l’analyse s’est concentrée sur une période de `r periode$nb_jours_total`, du `r periode$date_debut` au `r periode$date_fin`. Cela correspond à la période d'exploitation de l'outil smartscop, déployé plus tôt cette année.
+Bien que le SCOP opère des activités depuis avril 2022, l’analyse s’est concentrée sur une période de `r periode$nb_jours_total`, du `r periode$date_debut` au `r periode$date_fin`. Cela correspond à la période d'exploitation de l'outil SMART SCOP, déployé plus tôt cette année.
 
 Ce n'est qu'une goute d'eau dans l'histoire du SCOP, et pas de la meilleure période, je peux vous l'affirmer. Cependant, cette durée permet quand même d’observer :
 
@@ -291,21 +335,16 @@ Ce n'est qu'une goute d'eau dans l'histoire du SCOP, et pas de la meilleure pér
 - des variations saisonnières ;
 - et des phénomènes de récurrence chez certains usagers.
 
-Pourquoi ne pas êtr remonté plus loin ? En réalité, nous dispositions en version papier de plusieurs régistres qui renseignent les flux d'usagers depuis l'ouverture, et d'archives de listes de présence aux activités clés menées sur le site depuis 2022.
-
-Une démarche d'extraction des données a été initiée au moment de mon stage, donnant naissance à une base de données d'activité, que nous avons finalement dû écarter de cette étude.
-
+Pourquoi ne pas être remonté plus loin ? En réalité, nous dispositions en version papier de plusieurs régistres qui renseignent les flux d'usagers depuis l'ouverture, et d'archives de listes de présence aux activités clés menées sur le site depuis 2022. Une démarche d'extraction des données a été initiée au moment de mon stage, donnant naissance à une base de données d'activité, que nous avons finalement dû écarter de cette étude.
 
 ## Suppression de la base de données d’activité
 
-Ce choix peut sembler contre-intuitif. Pourtant, il répond à une logique claire. Premièrement, à peine 38 % des usagers enrégistrés auraient réellement participé aux activités sur cette période. Cela réflète une sous-utilisation de l'outil smartscop, pourtant dédié à la gestion du flux d'usagers. Ce qui aurait généré une perte énorme d'informations en cas de jointures.
+Ce choix peut sembler contre-intuitif. Pourtant, il répond à une logique claire. Premièrement, à peine 38 % des usagers enrégistrés dans SMART SCOP auraient réellement participé aux activités sur la période considérée (avril à décembre 2025). Cela réflète une sous-utilisation de l'outil, pourtant dédié à la gestion du flux d'usagers. Utiliser cette base de données d'activité aurait généré une perte énorme d'informations en cas de jointures.
 
-De plus, l’objectif de l’étude n'était pas d’évaluer la performance intrinsèque des activités proposées, mais de comprendre les dynamiques globales de fréquentation indépendamment des formats spécifiques.
+De plus, l’objectif de l’étude n'était pas d’évaluer la performance intrinsèque des activités proposées, mais de comprendre les dynamiques globales de fréquentation indépendamment des formats spécifiques. Intégrer trop tôt la dimension “activité” aurait risqué de brouiller la lecture, en confondant :
 
-Intégrer trop tôt la dimension “activité” aurait risqué de brouiller la lecture, en confondant :
-
-- l’effet du lieu,
-- l’effet de la programmation,
+- l’effet du lieu ;
+- l’effet de la programmation des activités ;
 - et l’effet des comportements individuels.
 
 En se concentrant d’abord sur les présences et les comportements d’usagers, l’analyse a pu mettre en évidence des régularités robustes. Ces résultats constituent une base saine sur laquelle des analyses futures, plus ciblées sur les activités, pourront s’appuyer une fois la reconstitution des données complétées.
@@ -317,7 +356,7 @@ En se concentrant d’abord sur les présences et les comportements d’usagers,
 
 Le Sèmè City Open Park est ouvert au public, du lundi au Samedi, de 09 h à 22 h inclus. Cette année, nous avons enrégistré 14 809 visites, réalisées par 3 540 usagers uniques, sur 245 jours d’observation, dont 209 jours effectivement ouverts, soit un taux d’ouverture de 85 %.
 
-Les observations effectuées révèlera que l’enjeu principal n’est pas tant l’attraction ponctuelle que la transformation des primo-visiteurs en usagers récurrents.
+Les observations effectuées révèleront que l’enjeu principal n’est pas tant l’attraction ponctuelle que la transformation des primo-visiteurs en usagers récurrents.
 
 
 ## Ampleur et structure de la fréquentation
@@ -328,14 +367,14 @@ knitr::include_graphics("outputs/figures/01_frequentation_journaliere.png")
 ```
 
 
-Le moins que l'on puisse dire, c'est que le rythme de fréquentation au Sèmè City Open Park est très dynamique. Les visites quotidiennes oscillent entre `{r min(data_daily$nb_visites) }` (les jours de fermetture comme le dimanche) et `{r max(data_daily$nb_visites) }` visites par jour, avec une moyenne générale à environ `{r round(mean(data_daily$nb_visites), 0) }` visites par jour.
+Le moins que l'on puisse dire, c'est que le rythme de fréquentation au Sèmè City Open Park est très dynamique. Les visites quotidiennes oscillent entre 0 (les jours de fermetture comme le dimanche) et 182 visites par jour, avec une moyenne générale à environ 71 visites par jour (calculée sur les jours effectifs d'activité).
 
 En prenant un peu de recul, on remarque très vite que, mis bout à bout, ces flux quotidiens génèrent quand même un traffic mensuel assez important, entre 1352 en Aôut contre 2252 le mois précédent.
-
 
 ```{r}
 knitr::include_graphics("outputs/figures/02_frequentation_mensuelle.png")
 ```
+
 Ces chiffres traduisent une activité soutenue, mais surtout une fréquentation très inégalement répartie entre les différents individus.
 
 ```{r}
@@ -353,15 +392,17 @@ Cette dissymétrie indique que la fréquentation du lieu repose largement sur un
 
 ## Rythmes, cycles et contrastes
 
+La fréquentation du Sèmè City Open Park n’est pas constante. Elle suit des cycles nets, observables à l’échelle mensuelle, hebdomadaire et journalière.
+
 ### Journées les plus fréquentées
 
-La fréquentation du Sèmè City Open Park n’est pas constante. Elle suit des cycles nets, observables à l’échelle mensuelle, hebdomadaire et journalière. Les analyses temporelles montrent que la fréquentation est majoritairement concentrée en semaine, avec 83,6 % des visites, contre 16,4 % le week-end.
+Les analyses temporelles montrent que la fréquentation est majoritairement concentrée en semaine, avec 83,6 % des visites, contre 16,4 % le week-end.
 
 ```{r}
 knitr::include_graphics("outputs/figures/03_frequentation_jour_semaine.png")
 ```
 
-Le vendredi apparaît comme le jour le plus actif, avec 2894 visites cumulées, tandis que le dimanche est de loin le jour le moins fréquenté, avec seulement 95 visites sur l’ensemble de la période. L’écart entre ces deux journées atteint 132 %, illustrant un potentiel d’optimisation considérable.
+Le vendredi apparaît comme le jour le plus actif, avec 2 894 visites cumulées, tandis que le dimanche est de loin le jour le moins fréquenté, avec seulement 95 visites sur l’ensemble de la période.
 
 
 ### Horaires et durées des visites
@@ -369,7 +410,7 @@ Le vendredi apparaît comme le jour le plus actif, avec 2894 visites cumulées, 
 L’analyse des heures d’arrivée montre une fréquentation principalement concentrée entre 9h et 18h, avec un pic des arrivées marqué autour de 10h et une heure moyenne d’arrivée située à 14h.
 
 ```{r}
-knitr::include_graphics("outputs/figures/04_distribution_heures_arrivee.png")
+knitr::include_graphics("outputs/figures/05_heatmap_jour_heure.png")
 ```
 
 Les durées de visite sont particulièrement révélatrices du type d’usage du lieu :
@@ -387,7 +428,7 @@ Ces chiffres montrent que le Sèmè City Open Park n’est pas un lieu de passag
 
 ## Utilisation de l'espace : concentrations et déséquilibres
 
-Le Sèmè City Open Park compte 29 espaces actifs, mais leur fréquentation est loin d’être homogène. Les résultats montrent une forte concentration sur très peu d'espaces :
+Le Sèmè City Open Park compte 29 ateliers et espaces actifs, mais leur fréquentation est loin d’être homogène. Les résultats montrent une forte concentration sur très peu d'espaces :
 
 - les 3 espaces les plus fréquentés concentrent 51,8 % des visites ;
 - le Rooftop, à lui seul, totalise 3622 visites, ce qui en fait l’espace le plus attractif du site.
@@ -412,23 +453,22 @@ Cette répartition suggère que l’amélioration de la fréquentation ne passe 
 
 Le parc présente une forte disparité de genre avec une prédominance masculine marquée. Les hommes représentent 75,1% des usagers contre 24,9% pour les femmes, soit un ratio de 3:1. Cette asymétrie pose la question de l'attractivité différenciée du parc selon le genre et suggère des axes d'amélioration pour diversifier le public.
 
-
 ### L'utilisateur moyen a 25 ans
 
-La population du parc est majoritairement jeune avec un âge médian de 23 ans et une moyenne de 24 ans. La distribution révèle une forte concentration dans la tranche 20-24 ans qui représente à elle seule 50,2% des usagers.
+La population du parc est majoritairement jeune avec un âge médian de 23 ans et une moyenne de 25 ans. La distribution révèle une forte concentration dans la tranche 20-25 ans qui représente à elle seule 50,2% des usagers.
 
 ```{r}
 knitr::include_graphics("outputs/figures/09_pyramide_ages.png")
 ```
 
-Cette caractéristique s'explique par la proximité d'établissements universitaires, notamment Epitech, Africa DEsign School et l'Université d'Abomey-Calavi (UAC), qui constituent le principal réservoir d'usagers.
+Cette caractéristique s'explique par la proximité d'établissements universitaires, notamment Epitech et l'Université d'Abomey-Calavi (UAC), qui constituent le principal réservoir d'usagers.
 
 
 ### Il réside à Cotonou et ses environs
 
 Les usagers du Sèmè City Open Park proviennent de 108 villes différentes, mais cette diversité est très concentrée :
 
-- les 5 premières villes représentent 93,6 % des visites,
+- les 5 premières villes représentent 93,6 % des visites ;
 - la ville de Cotonou concentre à elle seule 55,7 % des visites.
 
 ```{r}
@@ -439,7 +479,7 @@ L’indice de concentration géographique (HHI = 0,4284) confirme un ancrage ter
 
 ### Il est étudiant en informatique et technologies numériques
 
-287 établissements différents sont recensés, témoignant d'une diversité remarquable. Cependant, le taux de renseignement de 44,2% indique qu'une part importante des usagers ne déclare pas leur affiliation, ce qui peut biaiser l'analyse.
+287 établissements différents sont recensés, témoignant d'une diversité remarquable. Cependant, le taux de renseignement de 44,2% indique qu'une part importante des usagers ne déclare pas leur affiliation, ce qui peut biaiser l'analyse des profils.
 
 La distribution des domaines d'étude reflète la vocation technologique et innovante du parc. Avec 391 domaines différents recensés (réduits à 252 après harmonisation), la diversité disciplinaire est remarquable, bien que le taux de renseignement de 42,4% limite la portée de cette analyse.
 
@@ -450,8 +490,7 @@ La distribution des domaines d'étude reflète la vocation technologique et inno
 knitr::include_graphics("outputs/figures/52_impact_motif_frequentation.png")
 ```
 
-Le travail personnel est le motif le plus utilisé par les usagers du Sèmè City Open Park, qui bénéficient sans doute de l'expérience SCOP : un kit de démarrage dans le parc, où ils peuvent accéder à un espace de travail libre et confortable, de l'électricité et une connexion internet.
-
+Le travail personnel est le motif le plus utilisé par les usagers du Sèmè City Open Park, qui bénéficient sans doute de l'expérience de base du SCOP, parfaite pour le coworking : un kit de démarrage qui leur permet d'accéder à un espace de travail libre et confortable, de l'électricité et une connexion internet.
 
 
 ## Un comportement hétérogène
@@ -516,32 +555,109 @@ Hypothèse H3 :
 
 > Une part importante de la fréquentation potentielle du parc est latente et pourrait être activée sans augmentation significative des ressources, par une meilleure répartition des usages existants.
 
-
-Ces trois hypothèses structurent la suite de l’analyse. Elles seront confrontées aux résultats statistiques, comportementaux et prédictifs issus de la modélisation afin d’en tester la validité et d’en tirer des enseignements opérationnels.
+Ces trois hypothèses structureront la suite de l’analyse. Elles seront confrontées aux résultats statistiques, comportementaux et prédictifs issus de la modélisation afin d’en tester la validité et d’en tirer des enseignements opérationnels.
 
 
 # Les milles et un facteurs d'influence de la fréquentation du parc
 
 Si la fréquentation du Sèmè City Open Park peut, à première vue, sembler relever d’une alchimie complexe, l’analyse des données révèle au contraire une réalité plus structurée. Derrière la diversité apparente des usages se cachent quelques facteurs dominants, capables d’expliquer à la fois le nombre de visites, leur durée, et la capacité du lieu à fidéliser ses usagers.
 
-L'analyse de ces facteurs d'influence révèlera d'ailleurs que la fréquentation du parc est avant tout un phénomène endogène : elle dépend plus de ce qui se passe à l’intérieur du lieu que de facteurs externes. Cette conclusion est corroborée par la modélisation multivariée, dans laquelle les variables internes au fonctionnement du parc (nouveaux usagers, espaces actifs, inertie de fréquentation) concentrent près de 87 % de l’importance totale, contre seulement 13 % pour les facteurs temporels.
-
+L'analyse de ces facteurs d'influence révèlera d'ailleurs que la fréquentation du parc est avant tout un phénomène endogène : elle dépend plus de ce qui se passe à l’intérieur du lieu que de facteurs externes. Cette conclusion est corroborée par la modélisation multivariée, dans laquelle les variables internes au fonctionnement du parc (nombre de nouveaux usagers, espaces actifs, inertie de fréquentation) concentrent près de 87 % de l’importance totale, contre seulement 13 % pour les facteurs temporels.
 
 ## Régression mutlivariée par Random Forest
 
 Afin de hiérarchiser l’influence relative des facteurs identifiés, un modèle de régression par Random Forest a été entraîné sur 199 observations quotidiennes, en intégrant 16 variables explicatives. Ce modèle de Random Forest n’a pas vocation à fournir une prédiction opérationnelle à court terme, mais à identifier et hiérarchiser les variables les plus déterminantes dans l’explication de la fréquentation observée.
 
+```{r, echo=FALSE}
+library(dplyr)
+library(knitr)
+library(kableExtra)
 
-```{r}
-print(head(importance_rf, 05))
+importance_vars <- tibble::tibble(
+  Variable = c(
+    "nb_nouveaux_usagers",
+    "nb_espaces_actifs",
+    "nb_visiteurs_ma7",
+    "jour_semaine_num",
+    "nb_visiteurs_sd7"
+  ),
+  `%IncMSE` = c(35.317, 19.884, 11.688, 5.887, 5.607),
+  IncNodePurity = c(47969, 20350, 15456, 2229, 13060),
+  Importance_relative = c(35.005, 19.709, 11.584, 5.835, 5.558),
+  Catégorie = c(
+    "Démographique",
+    "Comportemental",
+    "Historique",
+    "Temporel",
+    "Historique"
+  )
+)
+
+importance_vars %>%
+  mutate(
+    Variable = dplyr::recode(
+      Variable,
+      nb_nouveaux_usagers = "Nouveaux usagers",
+      nb_espaces_actifs   = "Nombre d’espaces actifs",
+      nb_visiteurs_ma7    = "Visiteurs (moyenne mobile 7 jours)",
+      jour_semaine_num    = "Jour de la semaine",
+      nb_visiteurs_sd7    = "Variabilité des visiteurs (7 jours)"
+    )
+  ) %>%
+  arrange(desc(`%IncMSE`)) %>%
+  kable(
+    caption = "Variables clés expliquant la fréquentation du Sèmè City Open Park",
+    digits = 2,
+    booktabs = TRUE,
+    align = "lrrrl",
+    format = "pipe"
+  ) %>%
+  kable_styling(
+    latex_options = "hold_position",
+    full_width = FALSE,
+    position = "center"
+  )
+
+
+
 ```
 
 Le modèle explique 69,8 % de la variance totale de la fréquentation, avec une erreur quadratique moyenne de 218,8, soit une erreur de prédiction d’environ 15 visiteurs par jour. L’analyse de l’importance des variables issue du modèle met en évidence une hiérarchie claire des facteurs expliquant la fréquentation quotidienne.
 
-La variable la plus influente est le nombre de nouveaux usagers (`nb_nouveaux_usagers`), représentant à elle seule environ 35 % de l’importance totale, suivie par le nombre d’espaces actifs (`nb_espaces_actifs`, 19,7 %) et la fréquentation moyenne des sept derniers jours (`nb_visiteurs_ma7`, 11,6 %). Ces trois variables concentrent près de 66 % du pouvoir explicatif du modèle, indiquant que la fréquentation repose principalement sur des dynamiques internes cumulatives.
+La variable la plus influente est le nombre de nouveaux usagers (`nb_nouveaux_usagers`), représentant à elle seule environ 35,32 % de l’importance totale, suivie par le nombre d’espaces actifs (`nb_espaces_actifs`, 19,88 %) et la fréquentation moyenne des sept derniers jours (`nb_visiteurs_ma7`, 11,69 %). Ces trois variables concentrent près de 66 % du pouvoir explicatif du modèle, indiquant que la fréquentation repose principalement sur des dynamiques internes cumulatives.
 
 ```{r}
-print(importance_categorie)
+library(dplyr)
+library(knitr)
+library(kableExtra)
+
+importance_cat <- tibble::tibble(
+  Catégorie = c(
+    "Démographique",
+    "Historique",
+    "Comportemental",
+    "Temporel"
+  ),
+  Importance_Totale = c(37.3, 26.5, 24.0, 13.1),
+  Nb_Variables = c(3, 5, 3, 5),
+  Pourcentage = c(36.9, 26.3, 23.8, 13.0)
+)
+
+importance_cat %>%
+  arrange(desc(Pourcentage)) %>%
+  kable(
+    caption = "Répartition de l’importance des variables par catégorie",
+    digits = 1,
+    booktabs = TRUE,
+    align = "lrrr"
+  ) %>%
+  kable_styling(
+    latex_options = "hold_position",
+    full_width = FALSE,
+    position = "center"
+  )
+
+
 ```
 
 Les facteurs historiques, traduisant l’inertie de fréquentation à court et moyen terme, représentent 26,3 % de l’importance globale, confirmant l’existence d’un effet mémoire significatif. Les facteurs temporels, bien que statistiquement significatifs en analyse univariée, ne contribuent qu’à 13 % de l’explication une fois les dynamiques internes prises en compte. Enfin, les variables démographiques hors arrivée de nouveaux usagers présentent un impact marginal, voire nul, soulignant que le renouvellement des usagers importe davantage que leurs caractéristiques individuelles.
@@ -568,15 +684,29 @@ Les résultats de la modélisation confirment largement l’hypothèse H1. Le mo
 
 Les facteurs démographiques et temporels, bien que significatifs isolément, jouent un rôle secondaire une fois ces dynamiques internes prises en compte. La fréquentation apparaît donc comme un phénomène largement endogène, auto-renforcé par les usages du lieu lui-même.
 
-Hypothèse H1 validée.
+L'Hypothèse H1 est donc validée.
 
 ## Hypothèse H2 : Rôle critique de la première visite
 
 Les analyses comportementales confirment le caractère déterminant de la première visite. Plus de 55 % des usagers ne reviennent jamais, et près d’un quart des visites ont lieu le jour même de l’inscription. La majorité des trajectoires d’usage s’interrompent donc très tôt.
 
-Les cohortes présentant les meilleurs taux de rétention correspondent à des périodes où l’expérience initiale était plus structurée, suggérant un effet direct de l’onboarding sur la fidélisation.
+```{r}
+knitr::include_graphics("outputs/figures/courbe_survie_scop.png")
+```
 
-Hypothèse H2 fortement validée.
+L'analyse de survie valide statistiquement ces observations (test log-rank, p < 0,0001). Les temps médians de survie confirment que la trajectoire d'engagement se joue très tôt : 30 jours pour les Explorateurs, 120 jours pour les Réguliers, et au-delà de 240 jours pour les Fidèles. Une fois le seuil de 30 jours franchi, la probabilité de rétention augmente significativement.
+
+La matrice de transition des états d’engagement apporte un éclairage dynamique essentiel à l’hypothèse H2. Elle montre que les trajectoires d’usage du Sèmè City Open Park ne sont ni linéaires ni figées, mais marquées par des passages fréquents entre différents niveaux d’engagement.
+
+```{r}
+knitr::include_graphics("outputs/figures/64_matrice_de_transition.png")
+```
+
+Les usagers récemment inscrits, souvent classés comme occasionnels ou explorateurs, constituent un carrefour stratégique : ils peuvent évoluer vers des profils fidèles, mais aussi basculer rapidement vers le churn. Ces transitions confirment que la première expérience vécue dans le parc ne détermine pas seulement le retour immédiat, mais influence durablement la trajectoire d’engagement.
+
+Les cohortes présentant les meilleurs taux de rétention correspondent à des périodes où l'expérience initiale était plus structurée, suggérant un effet direct de l'onboarding sur la fidélisation.
+
+L'Hypothèse H2 est également fortement validée.
 
 ## Hypothèse H3 : Potentiel latent et sous-exploitation des usages
 
@@ -584,15 +714,15 @@ La concentration extrême de la fréquentation confirme l’existence d’un pot
 
 Ces déséquilibres traduisent non pas un manque d’intérêt, mais une faible découvrabilité et une activation incomplète de l’offre existante.
 
-Hypothèse H3 validée.
+L'Hypothèse H3 est validée.
 
-\newpage
 
 # Préconisations Stratégiques
 
-Les leviers identifiés sont majoritairement internes, maîtrisables et peu coûteux. Les simulations montrent qu’en combinant ces actions, le parc pourrait théoriquement générer jusqu’à 246 000 visites supplémentaires, soit +1 710 % par rapport à la situation actuelle.
+Les leviers identifiés sont majoritairement internes, maîtrisables et à priori, peu coûteux à mettre en place. Les simulations montrent qu’en combinant ces actions, le parc pourrait théoriquement générer jusqu’à 246 000 visites supplémentaires, soit +1 710 % par rapport à la situation actuelle.
 
-Ce chiffre doit être interprété comme une borne haute, illustrant le potentiel latent du lieu, et non comme une projection mécanique
+Ce chiffre doit être interprété comme une borne haute, illustrant le potentiel latent du lieu, et non comme une projection mécanique des visites futures.
+
 
 ## Axe prioritaire 1 – Sécuriser la première visite
 
@@ -602,10 +732,10 @@ La cartographie de la fréquentation a mis en évidence une fragilité structure
 
 L’enjeu n’est pas d’ajouter de nouvelles offres, mais de donner du sens et une continuité immédiate à la première expérience vécue dans le parc.
 
-Actions à activer dès aujourd’hui :
+Actions à réaliser dès aujourd’hui :
 
 - formaliser un parcours d’accueil lisible pour les primo-visiteurs ;
-- mettre en place un message de suivi systématique à J+2 ;
+- mettre en place un message de suivi systématique à J+2 par exemple après la première visite ;
 - inciter explicitement à une seconde visite (invitation, pass découverte, avantage symbolique).
 
 Impact envisagé :
@@ -625,8 +755,7 @@ L’objectif est donc de mieux distribuer les flux existants, sans chercher à a
 
 Leviers à mobiliser :
 
-- création de parcours découverte reliant plusieurs espaces ;
-- mise en place d’un pass ou badge multi-espaces ;
+- création de parcours de découverte, avec des activités et expériences immersives reliant plusieurs espaces ;
 - renforcement de la visibilité des espaces sous-utilisés.
 
 Impact envisagé :
@@ -646,7 +775,7 @@ L’enjeu est d’activer ces temps faibles de manière progressive, sans dégra
 
 Actions envisageables :
 
-- programmation d’événements légers sur les créneaux creux (après 18h) ;
+- privilégier une programmation d'activités légégères sur les créneaux creux (après 18h en semaine) ;
 - communication ciblée et anticipée auprès des segments pertinents ;
 - expérimentation de formats pilotes avant déploiement à grande échelle.
 
@@ -680,17 +809,15 @@ Impact envisagé :
 
 Cette feuille de route repose sur un principe simple : mieux activer l’existant avant de chercher la croissance externe. Les leviers identifiés sont majoritairement internes, contrôlables et peu coûteux. Leur déploiement progressif permettrait d’augmenter significativement la fréquentation tout en préservant l’identité et l’expérience du Sèmè City Open Park.
 
-\newpage
-
 # Limites de l'étude
 
-Comme toute analyse fondée sur des données empiriques, cette étude présente un certain nombre de limites qu’il convient d’expliciter. Les identifier ne remet pas en cause la validité des résultats obtenus ; au contraire, cela permet d’en préciser la portée et d’ouvrir des perspectives d’amélioration pour les travaux futurs. Elles soulignent surtout que la donnée est un chantier vivant, dont l’amélioration progressive conditionnera la capacité du parc à mieux se comprendre, à mieux se piloter et à mieux se projeter.
+Comme toute analyse fondée sur des données empiriques, cette étude présente un certain nombre de limites qu’il convient d’expliciter. Les identifier ne remet pas en cause la validité des résultats obtenus ; au contraire, cela permet d’en préciser la portée et d’ouvrir des perspectives d’amélioration pour les travaux futurs. Elles soulignent surtout qu'au SCOP, la donnée est un chantier vivant, dont l’amélioration progressive conditionnera la capacité du parc à mieux se comprendre, à mieux se piloter et à mieux se projeter.
 
-## Une vision partielle de la réalité observée
+## Une vision partielle de la réalité observable
 
-La première limite majeure de cette étude réside dans la couverture incomplète des données disponibles. Les données issues de Smart SCOP ne reflètent qu’une fraction de la réalité des usages du Sèmè City Open Park. De nombreux publics fréquentant régulièrement le site ne sont que partiellement, voire pas du tout, référencés dans le système.
+La première limite majeure de cette étude réside dans la couverture incomplète des données disponibles. Les données issues de SMART SCOP ne reflètent qu’une fraction de la réalité des usages du Sèmè City Open Park. De nombreux publics fréquentant régulièrement le site ne sont que partiellement, voire pas du tout, référencés dans le système.
 
-À titre d’exemple, seuls une cinquantaine d’étudiants de Africa Design School apparaissent dans la base, alors que plus de 300 étudiants sont inscrits pour l’année académique 2025, toutes filières confondues. De même, les enfants participant aux programmes du TinIMA ne sont pas intégrés au dispositif de suivi, alors même qu’ils occupent une place centrale dans la vie du parc.
+À titre d’exemple, seuls 224 étudiants de Africa Design School (toutes années confondues) apparaissent dans la base, alors que plus de 300 étudiants sont inscrits uniquement pour l’année académique 2025, toutes filières confondues, et bien plus encore des alumnis de l'Ecole fréquentent le SCOP. De même, les enfants participant aux programmes du TinIMA ne sont pas intégrés au dispositif de suivi, alors même qu’ils occupent une place centrale dans la vie du parc.
 
 Les données analysées constituent ainsi une goutte d’eau dans l’univers potentiellement observable des usages du lieu. Cette situation n’est pas sans rappeler la distinction entre univers observable et univers réel évoquée dans le documentaire L’homme n’est pas unique (Arte), où la connaissance scientifique progresse non pas en prétendant saisir le tout, mais en travaillant rigoureusement sur des fragments accessibles du réel.
 
@@ -711,22 +838,21 @@ L’exclusion de cette dimension prive l’analyse d’une lecture plus fine de 
 Certains facteurs susceptibles d’influencer la fréquentation n’ont pas pu être intégrés à l’analyse faute de données disponibles. Il s’agit notamment :
 
 - des contraintes individuelles des usagers (emploi du temps académique, obligations professionnelles) ;
-- des événements externes (examens, vacances, contexte socio-économique) ;
+- des événements externes (examens, vacances, contexte socio-économique, météo, catastrophes politiques ou naturelles) ;
 - des effets de communication hors ligne ou informels.
 
 Ces éléments, bien que potentiellement influents, restent difficiles à mesurer et à isoler quantitativement. Leur absence peut expliquer une part résiduelle de la variance non expliquée par les modèles.
 
 ## Vers un outil unifié de gestion des données
 
-L’ensemble de ces limites converge vers une cinquième recommandation structurante :
-la nécessité de mettre en place un outil unifié de gestion des données au Sèmè City Open Park.
+L’ensemble de ces limites converge vers une cinquième recommandation structurante : la nécessité de mettre en place un outil unifié de gestion des données au Sèmè City Open Park.
 
-Aujourd’hui, les informations relatives aux usagers, aux activités et aux usages sont dispersées entre plusieurs outils hétérogènes, rendant difficile la reconstitution complète de l’expérience vécue par un individu au sein du parc.
+Aujourd’hui, les informations relatives aux usagers, aux activités et aux usages sont dispersées entre plusieurs outils hétérogènes, rendant difficile la reconstitution complète de l’expérience vécue par chaque usager au sein du parc.
 
-Un système unifié permettrait :
+Un système unifié de collecte et gestion des données permettrait :
 
 - de créé une mémoire collective de l'historique du parc ;
-- de retracer le parcours complet d’un usager (inscription, visites, activités, fidélisation) ;
+- de retracer le parcours complet de chaque usager (inscription, visites, activités, fidélisation) ;
 - d’améliorer la qualité et la continuité des données collectées ;
 - de renforcer la capacité d’analyse et de pilotage stratégique à long terme.
 
@@ -737,7 +863,7 @@ La mise en place d’un tel dispositif constitue une condition essentielle pour 
 
 # Conclusion
 
-« Venez avec une idée, repartez avec un prototype. »
+**« Venez avec une idée, repartez avec un prototype. »**
 Cette promesse résume l’essence du Sèmè City Open Park. Elle a également guidé cette étude, pensée comme un prototype analytique : partir de données imparfaites pour faire émerger des leviers concrets d’action.
 
 L’analyse montre que la fréquentation du SCOP n’est ni aléatoire ni uniquement déterminée par les infrastructures. Elle repose sur des dynamiques internes structurantes : un noyau restreint d’usagers fortement engagés, des rythmes temporels marqués, une attractivité spatiale inégale et un moment clé situé dès la première visite. La fréquentation relève ainsi moins de volumes bruts que de trajectoires d’usage.
@@ -760,5 +886,10 @@ ARTE. (2019). L’homme n’est pas unique [Documentaire].
 
 
 \newpage
-\includepdf{medias/the_end.pdf}
+\includepdf[
+  pages=1,
+  scale=1,
+  pagecommand={\thispagestyle{empty}},
+  offset=0 0
+]{medias/the_end.pdf}
 

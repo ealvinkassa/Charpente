@@ -951,6 +951,30 @@ data_survie <- data_usagers %>%
     event = ifelse(est_inactif_60j, 1, 0)  # 1 = churné, 0 = censuré (actif)
   )
 
+head(data_survie)
+
+
+# Diagnostic des catégories
+
+# Diagnostic complet
+cat("=== DIAGNOSTIC DES CATÉGORIES ===\n\n")
+
+# 1. Catégories dans les données filtrées
+cat("1. Catégories dans data_survie (nb_visites >= 2):\n")
+print(table(data_survie$categorie_actuelle))
+
+# 2. Catégories dans le modèle
+cat("\n2. Strates du modèle Kaplan-Meier:\n")
+print(names(km_fit$strata))
+
+# 3. Nombre de niveaux
+cat("\n3. Nombre de niveaux du facteur:\n")
+print(nlevels(data_survie$categorie_actuelle))
+
+# 4. Tous les niveaux (même vides)
+cat("\n4. Tous les niveaux définis:\n")
+print(levels(data_survie$categorie_actuelle))
+
 # Modèle de survie de Kaplan-Meier
 km_fit <- survfit(Surv(temps_survie, event) ~ categorie_actuelle, 
                   data = data_survie)
@@ -958,20 +982,6 @@ km_fit <- survfit(Surv(temps_survie, event) ~ categorie_actuelle,
 cat("\nModèle de Kaplan-Meier estimé\n")
 print(summary(km_fit))
 
-# Visualisation de la courbe de survie
-ggsurvplot(
-  km_fit,
-  data = data_survie,
-  pval = TRUE,
-  conf.int = TRUE,
-  risk.table = TRUE,
-  title = "Courbes de Survie par Catégorie d'Usagers",
-  xlab = "Jours depuis l'inscription",
-  ylab = "Probabilité de rester actif",
-  legend.title = "Catégorie",
-  legend.labs = levels(data_survie$categorie_actuelle),
-  palette = c("blue", "green", "orange", "red")
-)
 
 # Temps médian de survie
 cat("\n⏱️ TEMPS MÉDIAN DE SURVIE (50% encore actifs):\n")
@@ -979,6 +989,140 @@ medians <- summary(km_fit)$table[, "median"]
 for(i in 1:length(medians)) {
   cat(paste("  ", names(medians)[i], ":", round(medians[i]), "jours\n"))
 }
+
+
+# ======================================================================
+# ANALYSE DE SURVIE COMPLÈTE
+# ======================================================================
+
+# 1. Préparation des données
+data_survie_complete <- data_usagers %>%
+  mutate(
+    temps_survie = anciennete_jours,
+    event = ifelse(est_inactif_60j, 1, 0),
+    # S'assurer que categorie_actuelle est un facteur ordonné
+    categorie_actuelle = factor(categorie_actuelle, 
+                                levels = c("Occasionnel", "Explorateur", 
+                                           "Régulier", "Fidèle"),
+                                ordered = TRUE)
+  )
+
+# 2. Statistiques descriptives
+cat("=== STATISTIQUES DESCRIPTIVES ===\n")
+cat("\nDistribution des catégories:\n")
+print(table(data_survie_complete$categorie_actuelle))
+
+cat("\nTaux de churn par catégorie:\n")
+print(data_survie_complete %>%
+        group_by(categorie_actuelle) %>%
+        summarise(
+          n = n(),
+          n_churn = sum(event),
+          taux_churn = round(mean(event) * 100, 1),
+          anciennete_med = round(median(temps_survie), 1)
+        ))
+
+# 3. Modèle de Kaplan-Meier
+km_fit <- survfit(Surv(temps_survie, event) ~ categorie_actuelle, 
+                  data = data_survie_complete)
+
+# 4. Temps médian de survie
+cat("\n=== TEMPS MÉDIAN DE SURVIE ===\n")
+medians <- surv_median(km_fit)
+print(medians)
+
+# 5. Visualisation principale
+p1 <- ggsurvplot(
+  km_fit,
+  data = data_survie_complete,
+  
+  # Tests statistiques
+  pval = TRUE,
+  pval.method = TRUE,
+  log.rank.weights = "1",  # Test log-rank standard
+  
+  # Intervalles de confiance
+  conf.int = TRUE,
+  conf.int.alpha = 0.1,  # Transparence
+  
+  # Table de risque
+  risk.table = TRUE,
+  risk.table.height = 0.3,
+  risk.table.title = "Nombre d'usagers à risque",
+  tables.theme = theme_cleantable(),
+  
+  # Titre et axes
+  title = "Courbes de Survie par Catégorie d'Usagers du SCOP",
+  subtitle = "Probabilité de rester actif au fil du temps",
+  xlab = "Jours depuis l'inscription",
+  ylab = "Probabilité de rester actif (%)",
+  
+  # Légende
+  legend.title = "Catégorie d'usager",
+  legend.labs = c("Occasionnel (1 visite)", 
+                  "Explorateur (2-5 visites)", 
+                  "Régulier (6-10 visites)", 
+                  "Fidèle (11+ visites)"),
+  legend = "right",
+  
+  # Couleurs cohérentes avec votre rapport
+  palette = c("#95a5a6", "#3498db", "#f39c12", "#e74c3c"),
+  
+  # Lignes médianes
+  surv.median.line = "hv",
+  
+  # Axes
+  break.time.by = 30,
+  xlim = c(0, max(data_survie_complete$temps_survie, na.rm = TRUE)),
+  ylim = c(0, 1),
+  
+  # Style
+  ggtheme = theme_minimal() +
+    theme(
+      plot.title = element_text(size = 14, face = "bold"),
+      plot.subtitle = element_text(size = 11, color = "gray40"),
+      legend.position = "right"
+    ),
+  
+  # Annotations
+  font.main = c(14, "bold"),
+  font.x = c(12, "plain"),
+  font.y = c(12, "plain"),
+  font.legend = c(10, "plain")
+)
+
+# 6. Affichage
+print(p1)
+
+# 7. Test de log-rank (comparaison formelle)
+cat("\n=== TEST DE LOG-RANK ===\n")
+surv_diff <- survdiff(Surv(temps_survie, event) ~ categorie_actuelle,
+                      data = data_survie_complete)
+print(surv_diff)
+
+# 8. Interprétation automatique
+cat("\n=== INTERPRÉTATION ===\n")
+if(surv_diff$pvalue < 0.001) {
+  cat("✓ Les courbes de survie diffèrent TRÈS significativement (p < 0.001)\n")
+} else if(surv_diff$pvalue < 0.05) {
+  cat("✓ Les courbes de survie diffèrent significativement (p < 0.05)\n")
+} else {
+  cat("✗ Pas de différence significative entre les catégories\n")
+}
+
+cat("\nTemps médian de survie:\n")
+for(i in 1:nrow(medians)) {
+  cat(sprintf("  %s: %d jours (IC 95%%: %d-%d)\n",
+              medians$strata[i], 
+              medians$median[i],
+              medians$lower[i],
+              medians$upper[i]))
+}
+
+# 9. Sauvegarde (optionnel)
+ggsave("outputs/figures/courbe_survie_scop.png", plot = p1$plot, 
+        width = 12, height = 8, dpi = 300, bg = "white")
+
 
 
 # =============================================================================
