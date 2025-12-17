@@ -33,7 +33,7 @@ header-includes:
   - \floatplacement{figure}{H}
 ---
 
-```{r initialise, include=FALSE}
+```{r initialise, echo=FALSE, include=FALSE}
 
 # --- 1. OPTIONS KNITR ---
 knitr::opts_chunk$set(
@@ -87,16 +87,51 @@ source("main.R")
 
 
 # Résumé de l'étude
+
 <!-- Donner la vision d’ensemble, lisible sans lire le reste -->
+
+Cette étude vise à comprendre et à améliorer la fréquentation du Sèmè City Open Park à partir de l’analyse des données d’usage disponibles. Elle repose sur l’exploitation des données issues de Smart SCOP, couvrant 14 809 visites réalisées par 3 540 usagers uniques sur 209 jours d’ouverture.
+
+L’analyse montre que la fréquentation du SCOP n’est ni aléatoire ni uniquement conditionnée par les infrastructures ou la programmation. Elle est structurée par des dynamiques internes fortes : un noyau réduit d’usagers très engagés, des rythmes temporels marqués, une attractivité spatiale inégale et un point de bascule décisif situé dès la première visite.
+
+En mobilisant des analyses descriptives, comportementales et une modélisation multivariée (Random Forest expliquant près de 70 % de la variance observée), l’étude identifie des facteurs d’influence hiérarchisés, majoritairement maîtrisables par le parc. Ces résultats permettent de formuler des préconisations stratégiques concrètes, orientées vers l’activation de l’existant plutôt que la croissance externe.
+
+L’enjeu principal n’est pas d’attirer toujours plus d’usagers, mais de mieux accueillir, mieux orienter et mieux fidéliser ceux qui franchissent déjà les portes du Sèmè City Open Park.
 
 
 ## Vers une qualification des usagers du Sèmè City Open Park
+
 <!-- Comprendre qui fréquente le lieu, comment et à quel rythme -->
+
+L’analyse met en évidence une fréquentation très hétérogène, tant dans son intensité que dans ses formes.
+
+La majorité des usagers (55,9 %) ne visitent le parc qu’une seule fois, tandis qu’une minorité restreinte (7,9 %) génère à elle seule plus de la moitié des visites totales. Cette structure en longue traîne révèle une dépendance forte à un noyau d’usagers engagés, autour duquel gravite une population majoritairement occasionnelle.
+
+Les usages observés montrent également que le SCOP est avant tout un lieu d’ancrage : la durée moyenne d’une visite dépasse 4 h 30, et près d’un tiers des visites excèdent 6 heures. La fréquentation est principalement concentrée en semaine et sur quelques espaces clés, tandis que de nombreux espaces et créneaux horaires restent sous-utilisés.
+
+Sur le plan des profils, l’usager moyen est jeune (environ 25 ans), majoritairement masculin, étudiant dans les domaines du numérique et résidant à Cotonou ou dans ses environs. Toutefois, les caractéristiques sociodémographiques expliquent peu la fréquentation une fois les dynamiques internes prises en compte.
+
+Enfin, la première visite apparaît comme un moment critique : plus d’un usager sur deux ne revient jamais, et près d’un quart des visites ont lieu le jour même de l’inscription. La trajectoire d’engagement se joue donc très tôt, souvent dès les premiers contacts avec le lieu.
 
 
 ## Que faire dès aujourd'hui ?
 <!-- Traduire immédiatement les constats en pistes d’action -->
 
+Les enseignements issus de l’analyse convergent vers un constat clair :
+les leviers d’amélioration de la fréquentation sont internes, actionnables et peu coûteux.
+
+Trois axes prioritaires peuvent être activés immédiatement :
+
+- 1. Sécuriser la première visite
+La rétention initiale constitue le levier le plus critique. Structurer l’onboarding, clarifier le parcours d’accueil et instaurer un suivi systématique après la première visite permettrait de transformer une part significative des visiteurs occasionnels en usagers récurrents.
+
+- 2. Rééquilibrer l’usage des espaces
+La fréquentation actuelle repose sur un nombre limité d’espaces. Encourager la découverte et la circulation entre espaces existants permettrait d’augmenter la fréquentation globale sans accroître la pression sur les zones déjà saturées.
+
+- 3. Exploiter les temps faibles sans dégrader l’expérience
+Certains jours et créneaux horaires présentent un fort potentiel latent. Des activations légères et ciblées permettraient de lisser la fréquentation dans le temps, en optimisant l’usage de la capacité existante.
+
+Les simulations montrent qu’en combinant ces actions, le parc pourrait théoriquement générer un volume de fréquentation nettement supérieur à l’existant. Ces résultats doivent être compris non comme des prévisions mécaniques, mais comme l’expression d’un potentiel latent aujourd’hui sous-exploité.
 
 
 \newpage
@@ -282,6 +317,8 @@ En se concentrant d’abord sur les présences et les comportements d’usagers,
 
 Le Sèmè City Open Park est ouvert au public, du lundi au Samedi, de 09 h à 22 h inclus. Cette année, nous avons enrégistré 14 809 visites, réalisées par 3 540 usagers uniques, sur 245 jours d’observation, dont 209 jours effectivement ouverts, soit un taux d’ouverture de 85 %.
 
+Les observations effectuées révèlera que l’enjeu principal n’est pas tant l’attraction ponctuelle que la transformation des primo-visiteurs en usagers récurrents.
+
 
 ## Ampleur et structure de la fréquentation
 
@@ -359,6 +396,12 @@ Le Sèmè City Open Park compte 29 espaces actifs, mais leur fréquentation est 
 knitr::include_graphics("outputs/figures/11_top_espaces.png")
 ```
 
+L’analyse des patterns hebdomadaires des cinq espaces les plus fréquentés met aussi en évidence des comportements différenciés selon les jours de la semaine. Cette interaction confirme que le jour de la semaine agit comme un amplificateur ou un frein, mais que la hiérarchie des espaces reste stable.
+
+```{r}
+knitr::include_graphics("outputs/figures/57_interaction_espace_jour_frequentation.png")
+```
+
 À l’inverse, 11 espaces sont identifiés comme sous-utilisés, avec moins de 50 visites chacun, représentant au total seulement 0,6 % de la fréquentation globale.
 
 Cette répartition suggère que l’amélioration de la fréquentation ne passe pas uniquement par l’acquisition de nouveaux usagers, mais aussi par une meilleure répartition des flux internes.
@@ -402,7 +445,14 @@ La distribution des domaines d'étude reflète la vocation technologique et inno
 
 ### Ses motivations sont très personnelles
 
+
+```{r}
+knitr::include_graphics("outputs/figures/52_impact_motif_frequentation.png")
+```
+
 Le travail personnel est le motif le plus utilisé par les usagers du Sèmè City Open Park, qui bénéficient sans doute de l'expérience SCOP : un kit de démarrage dans le parc, où ils peuvent accéder à un espace de travail libre et confortable, de l'électricité et une connexion internet.
+
+
 
 ## Un comportement hétérogène
 
@@ -438,50 +488,277 @@ L'analyse des comportements individuels révèle une faible mobilité inter-espa
 Cette concentration pose question sur la découvrabilité et la polyvalence de l'offre. Les usagers mono-espace représentent un potentiel de diversification considérable : 2 489 usagers pourraient être incités à explorer d'autres espaces.
 
 
-## En résumé
+## Formulation des hypothèses de recherche
 
-La cartographie de la fréquentation met en évidence quatre enseignements structurants :
+La cartographie de la fréquentation du Sèmè City Open Park, plusieurs régularités fortes émergent. Ces constats empiriques permettent de formuler trois hypothèses de recherche structurantes, qui guideront l’analyse des facteurs d’influence et la discussion des résultats.
 
-- La fréquentation est massivement concentrée sur un noyau réduit d’usagers engagés.
-- Les rythmes temporels jouent un rôle déterminant, avec des écarts très forts entre jours et horaires.
-- Les espaces ne contribuent pas de manière équivalente à l’attractivité du lieu.
-- La première visite constitue un moment critique dans la trajectoire d’engagement.
+### La fréquentation du parc est principalement déterminée par des dynamiques internes au lieu
 
-Ces constats structurent directement les hypothèses analysées dans la section suivante et fondent les préconisations stratégiques formulées ultérieurement.
+La cartographie met en évidence une forte concentration de la fréquentation dans le temps, dans l’espace et autour d’un noyau réduit d’usagers. Les écarts observés entre jours, espaces et profils suggèrent que la fréquentation dépend moins de facteurs exogènes (profil sociodémographique, contexte externe) que de mécanismes internes propres au fonctionnement du parc.
+
+Hypothèse H1 :
+
+> La fréquentation du Sèmè City Open Park est majoritairement expliquée par des dynamiques internes, liées à l’organisation du lieu, à l’activation des espaces et aux comportements cumulés des usagers.
+
+### La première visite constitue un point de bascule décisif dans la trajectoire d’engagement
+
+La cartographie révèle une proportion élevée d’usagers n’effectuant qu’une seule visite, ainsi qu’une ancienneté médiane nulle. Ces éléments suggèrent que la majorité des trajectoires d’usage se jouent très tôt, dès les premiers contacts avec le parc.
+
+Hypothèse H2 :
+
+> La qualité et le contexte de la première visite conditionnent fortement la probabilité de rétention et d’engagement futur des usagers.
+
+### Une part significative du potentiel de fréquentation est aujourd’hui sous-exploitée
+
+L’analyse met en lumière une forte concentration de la fréquentation sur quelques espaces, quelques créneaux temporels et une minorité d’usagers fidèles, tandis que de nombreux espaces, horaires et profils restent faiblement mobilisés.
+
+Hypothèse H3 :
+
+> Une part importante de la fréquentation potentielle du parc est latente et pourrait être activée sans augmentation significative des ressources, par une meilleure répartition des usages existants.
 
 
-# Milles et un facteurs d'influence
+Ces trois hypothèses structurent la suite de l’analyse. Elles seront confrontées aux résultats statistiques, comportementaux et prédictifs issus de la modélisation afin d’en tester la validité et d’en tirer des enseignements opérationnels.
 
 
+# Les milles et un facteurs d'influence de la fréquentation du parc
 
+Si la fréquentation du Sèmè City Open Park peut, à première vue, sembler relever d’une alchimie complexe, l’analyse des données révèle au contraire une réalité plus structurée. Derrière la diversité apparente des usages se cachent quelques facteurs dominants, capables d’expliquer à la fois le nombre de visites, leur durée, et la capacité du lieu à fidéliser ses usagers.
+
+L'analyse de ces facteurs d'influence révèlera d'ailleurs que la fréquentation du parc est avant tout un phénomène endogène : elle dépend plus de ce qui se passe à l’intérieur du lieu que de facteurs externes. Cette conclusion est corroborée par la modélisation multivariée, dans laquelle les variables internes au fonctionnement du parc (nouveaux usagers, espaces actifs, inertie de fréquentation) concentrent près de 87 % de l’importance totale, contre seulement 13 % pour les facteurs temporels.
+
+
+## Régression mutlivariée par Random Forest
+
+Afin de hiérarchiser l’influence relative des facteurs identifiés, un modèle de régression par Random Forest a été entraîné sur 199 observations quotidiennes, en intégrant 16 variables explicatives. Ce modèle de Random Forest n’a pas vocation à fournir une prédiction opérationnelle à court terme, mais à identifier et hiérarchiser les variables les plus déterminantes dans l’explication de la fréquentation observée.
+
+
+```{r}
+print(head(importance_rf, 05))
+```
+
+Le modèle explique 69,8 % de la variance totale de la fréquentation, avec une erreur quadratique moyenne de 218,8, soit une erreur de prédiction d’environ 15 visiteurs par jour. L’analyse de l’importance des variables issue du modèle met en évidence une hiérarchie claire des facteurs expliquant la fréquentation quotidienne.
+
+La variable la plus influente est le nombre de nouveaux usagers (`nb_nouveaux_usagers`), représentant à elle seule environ 35 % de l’importance totale, suivie par le nombre d’espaces actifs (`nb_espaces_actifs`, 19,7 %) et la fréquentation moyenne des sept derniers jours (`nb_visiteurs_ma7`, 11,6 %). Ces trois variables concentrent près de 66 % du pouvoir explicatif du modèle, indiquant que la fréquentation repose principalement sur des dynamiques internes cumulatives.
+
+```{r}
+print(importance_categorie)
+```
+
+Les facteurs historiques, traduisant l’inertie de fréquentation à court et moyen terme, représentent 26,3 % de l’importance globale, confirmant l’existence d’un effet mémoire significatif. Les facteurs temporels, bien que statistiquement significatifs en analyse univariée, ne contribuent qu’à 13 % de l’explication une fois les dynamiques internes prises en compte. Enfin, les variables démographiques hors arrivée de nouveaux usagers présentent un impact marginal, voire nul, soulignant que le renouvellement des usagers importe davantage que leurs caractéristiques individuelles.
+
+```{r}
+knitr::include_graphics("outputs/figures/pdp_grid_top4.png")
+```
+
+
+Afin d’interpréter les relations non linéaires apprises par le modèle de Random Forest, des Partial Dependence Plots (PDP) ont été utilisés. Ces graphiques représentent l’effet marginal moyen d’une variable explicative sur la fréquentation prédite, toutes choses égales par ailleurs.
+
+Ces performances indiquent une capacité explicative élevée dans un contexte réel fortement bruité. Elles confirment que la fréquentation du Sèmè City Open Park est largement gouvernée par des dynamiques internes mesurables, tout en laissant subsister une part résiduelle liée à des facteurs non observés.
 
 
 \newpage
 
 # Discussion : Hypothèses et Résultats
 
+Les trois hypothèses convergent vers un diagnostic commun : le principal levier d’amélioration de la fréquentation réside dans l’activation intelligente des usagers existants, bien plus que dans l’acquisition de nouveaux publics.
 
+## Hypothèse H1 : Dynamiques internes et fréquentation
+
+Les résultats de la modélisation confirment largement l’hypothèse H1. Le modèle Random Forest montre que les variables les plus explicatives de la fréquentation sont le nombre de nouveaux usagers (≈ 35 %), le nombre d’espaces actifs (≈ 20 %) et l’inertie de fréquentation à court terme (≈ 12 %). Ensemble, elles concentrent près de 66 % du pouvoir explicatif du modèle.
+
+Les facteurs démographiques et temporels, bien que significatifs isolément, jouent un rôle secondaire une fois ces dynamiques internes prises en compte. La fréquentation apparaît donc comme un phénomène largement endogène, auto-renforcé par les usages du lieu lui-même.
+
+Hypothèse H1 validée.
+
+## Hypothèse H2 : Rôle critique de la première visite
+
+Les analyses comportementales confirment le caractère déterminant de la première visite. Plus de 55 % des usagers ne reviennent jamais, et près d’un quart des visites ont lieu le jour même de l’inscription. La majorité des trajectoires d’usage s’interrompent donc très tôt.
+
+Les cohortes présentant les meilleurs taux de rétention correspondent à des périodes où l’expérience initiale était plus structurée, suggérant un effet direct de l’onboarding sur la fidélisation.
+
+Hypothèse H2 fortement validée.
+
+## Hypothèse H3 : Potentiel latent et sous-exploitation des usages
+
+La concentration extrême de la fréquentation confirme l’existence d’un potentiel non exploité. Moins de 8 % des usagers génèrent plus de la moitié des visites, tandis que 11 espaces ne représentent que 0,6 % de la fréquentation totale. De même, 70 % des usagers restent cantonnés à un seul espace.
+
+Ces déséquilibres traduisent non pas un manque d’intérêt, mais une faible découvrabilité et une activation incomplète de l’offre existante.
+
+Hypothèse H3 validée.
 
 \newpage
 
 # Préconisations Stratégiques
 
+Les leviers identifiés sont majoritairement internes, maîtrisables et peu coûteux. Les simulations montrent qu’en combinant ces actions, le parc pourrait théoriquement générer jusqu’à 246 000 visites supplémentaires, soit +1 710 % par rapport à la situation actuelle.
+
+Ce chiffre doit être interprété comme une borne haute, illustrant le potentiel latent du lieu, et non comme une projection mécanique
+
+## Axe prioritaire 1 – Sécuriser la première visite
+
+(Hypothèse H2 : la première visite est un moment décisif de la trajectoire d’engagement)
+
+La cartographie de la fréquentation a mis en évidence une fragilité structurelle de la rétention initiale : plus d’un usager sur deux ne revient pas après sa première visite. Ce constat fait de l’onboarding le levier le plus critique et le plus rentable à court terme.
+
+L’enjeu n’est pas d’ajouter de nouvelles offres, mais de donner du sens et une continuité immédiate à la première expérience vécue dans le parc.
+
+Actions à activer dès aujourd’hui :
+
+- formaliser un parcours d’accueil lisible pour les primo-visiteurs ;
+- mettre en place un message de suivi systématique à J+2 ;
+- inciter explicitement à une seconde visite (invitation, pass découverte, avantage symbolique).
+
+Impact envisagé :
+
+- conversion de 1 978 usagers occasionnels ;
+- gain potentiel estimé : +10 944 visites ;
+- coût opérationnel faible pour un impact très élevé.
+
+
+## Axe prioritaire 2 – Rééquilibrer l’usage des espaces
+
+(Hypothèses H1 et H3 : dynamiques internes et potentiel latent)
+
+L’analyse spatiale révèle une concentration extrême de la fréquentation sur quelques espaces, tandis qu’une part significative du parc reste sous-exploitée. Cette configuration limite mécaniquement la capacité d’accueil globale et freine la diversification des usages.
+
+L’objectif est donc de mieux distribuer les flux existants, sans chercher à augmenter artificiellement la fréquentation.
+
+Leviers à mobiliser :
+
+- création de parcours découverte reliant plusieurs espaces ;
+- mise en place d’un pass ou badge multi-espaces ;
+- renforcement de la visibilité des espaces sous-utilisés.
+
+Impact envisagé :
+
+- activation de 2 489 usagers mono-espace ;
+- gain potentiel estimé : +22 392 visites ;
+- amélioration de la durée moyenne de présence et de l’appropriation du lieu.
+
+
+## Axe prioritaire 3 – Lisser la fréquentation dans le temps
+
+(Hypothèse H1 : effets de rythme et inertie temporelle)
+
+Les écarts observés entre jours et horaires traduisent une utilisation très inégale du parc dans le temps. Certains créneaux restent largement disponibles, sans que cela ne reflète un manque d’intérêt de la part des usagers.
+
+L’enjeu est d’activer ces temps faibles de manière progressive, sans dégrader l’expérience sur les périodes de pointe.
+
+Actions envisageables :
+
+- programmation d’événements légers sur les créneaux creux (après 18h) ;
+- communication ciblée et anticipée auprès des segments pertinents ;
+- expérimentation de formats pilotes avant déploiement à grande échelle.
+
+Impact envisagé :
+
+- gain théorique maximal : +210 139 visites sur les jours faibles (borne haute) ;
+- gain plus réaliste sur les créneaux horaires : +2 881 visites ;
+- optimisation de l’utilisation de la capacité existante.
+
+
+## Axe prioritaire 4 – Consolider le noyau d’usagers engagés
+
+(Hypothèse H3 : dépendance à un noyau fidèle)
+
+Une minorité d’usagers concentre aujourd’hui plus de la moitié de la fréquentation. Ce noyau constitue la colonne vertébrale du modèle de fréquentation et doit être sécurisé dans la durée.
+
+L’objectif n’est pas seulement de les retenir, mais de reconnaître leur rôle structurant dans la vie du parc.
+
+Pistes d’action :
+
+- invitations personnalisées à des temps forts du parc ;
+- reconnaissance symbolique (statut, accès privilégié, visibilité) ;
+- intégration progressive dans la communauté et les dynamiques de co-création.
+
+Impact envisagé :
+
+- fidélisation de 789 explorateurs à fort potentiel ;
+- gain estimé : +8 000 à +10 000 visites ;
+- stabilisation des flux et réduction du risque de décrochage.
+
+
+Cette feuille de route repose sur un principe simple : mieux activer l’existant avant de chercher la croissance externe. Les leviers identifiés sont majoritairement internes, contrôlables et peu coûteux. Leur déploiement progressif permettrait d’augmenter significativement la fréquentation tout en préservant l’identité et l’expérience du Sèmè City Open Park.
+
+\newpage
+
+# Limites de l'étude
+
+Comme toute analyse fondée sur des données empiriques, cette étude présente un certain nombre de limites qu’il convient d’expliciter. Les identifier ne remet pas en cause la validité des résultats obtenus ; au contraire, cela permet d’en préciser la portée et d’ouvrir des perspectives d’amélioration pour les travaux futurs. Elles soulignent surtout que la donnée est un chantier vivant, dont l’amélioration progressive conditionnera la capacité du parc à mieux se comprendre, à mieux se piloter et à mieux se projeter.
+
+## Une vision partielle de la réalité observée
+
+La première limite majeure de cette étude réside dans la couverture incomplète des données disponibles. Les données issues de Smart SCOP ne reflètent qu’une fraction de la réalité des usages du Sèmè City Open Park. De nombreux publics fréquentant régulièrement le site ne sont que partiellement, voire pas du tout, référencés dans le système.
+
+À titre d’exemple, seuls une cinquantaine d’étudiants de Africa Design School apparaissent dans la base, alors que plus de 300 étudiants sont inscrits pour l’année académique 2025, toutes filières confondues. De même, les enfants participant aux programmes du TinIMA ne sont pas intégrés au dispositif de suivi, alors même qu’ils occupent une place centrale dans la vie du parc.
+
+Les données analysées constituent ainsi une goutte d’eau dans l’univers potentiellement observable des usages du lieu. Cette situation n’est pas sans rappeler la distinction entre univers observable et univers réel évoquée dans le documentaire L’homme n’est pas unique (Arte), où la connaissance scientifique progresse non pas en prétendant saisir le tout, mais en travaillant rigoureusement sur des fragments accessibles du réel.
+
+## Une analyse centrée sur les flux, au détriment des activités
+
+Cette étude s’est volontairement concentrée sur l’analyse des présences et des comportements d’usagers, indépendamment des activités programmées. Si ce choix a permis de dégager des régularités robustes sur la fréquentation globale, il constitue néanmoins une seconde limite.
+
+Une analyse intégrant les données d’activités aurait permis de mieux comprendre :
+
+- l’impact des formats proposés sur la fréquentation ;
+- les effets de la programmation sur la fidélisation ;
+- les interactions entre activités, espaces et trajectoires d’engagement.
+
+L’exclusion de cette dimension prive l’analyse d’une lecture plus fine de la dynamique globale du lieu. Elle constitue cependant un axe de travail prioritaire pour des recherches futures, une fois la reconstitution et la fiabilisation des données d’activités achevées.
+
+## Des effets exogènes difficilement observables
+
+Certains facteurs susceptibles d’influencer la fréquentation n’ont pas pu être intégrés à l’analyse faute de données disponibles. Il s’agit notamment :
+
+- des contraintes individuelles des usagers (emploi du temps académique, obligations professionnelles) ;
+- des événements externes (examens, vacances, contexte socio-économique) ;
+- des effets de communication hors ligne ou informels.
+
+Ces éléments, bien que potentiellement influents, restent difficiles à mesurer et à isoler quantitativement. Leur absence peut expliquer une part résiduelle de la variance non expliquée par les modèles.
+
+## Vers un outil unifié de gestion des données
+
+L’ensemble de ces limites converge vers une cinquième recommandation structurante :
+la nécessité de mettre en place un outil unifié de gestion des données au Sèmè City Open Park.
+
+Aujourd’hui, les informations relatives aux usagers, aux activités et aux usages sont dispersées entre plusieurs outils hétérogènes, rendant difficile la reconstitution complète de l’expérience vécue par un individu au sein du parc.
+
+Un système unifié permettrait :
+
+- de créé une mémoire collective de l'historique du parc ;
+- de retracer le parcours complet d’un usager (inscription, visites, activités, fidélisation) ;
+- d’améliorer la qualité et la continuité des données collectées ;
+- de renforcer la capacité d’analyse et de pilotage stratégique à long terme.
+
+La mise en place d’un tel dispositif constitue une condition essentielle pour approfondir les analyses futures et accompagner durablement la montée en maturité du Sèmè City Open Park.
 
 
 \newpage
 
-# Limites de l'Étude
+# Conclusion
 
+« Venez avec une idée, repartez avec un prototype. »
+Cette promesse résume l’essence du Sèmè City Open Park. Elle a également guidé cette étude, pensée comme un prototype analytique : partir de données imparfaites pour faire émerger des leviers concrets d’action.
 
+L’analyse montre que la fréquentation du SCOP n’est ni aléatoire ni uniquement déterminée par les infrastructures. Elle repose sur des dynamiques internes structurantes : un noyau restreint d’usagers fortement engagés, des rythmes temporels marqués, une attractivité spatiale inégale et un moment clé situé dès la première visite. La fréquentation relève ainsi moins de volumes bruts que de trajectoires d’usage.
 
-\newpage
+En mobilisant des analyses descriptives, des outils statistiques et des approches prédictives, ce travail a permis d’identifier des facteurs d’influence hiérarchisés et de formuler des préconisations stratégiques directement actionnables. L’enjeu n’est pas d’attirer toujours plus, mais de mieux accueillir, mieux orienter et mieux fidéliser.
 
-# Conclusion et Synthèse
+Cette étude constitue une première brique vers un pilotage du SCOP fondé sur la donnée. Comme tout prototype, elle appelle à être testée, enrichie et améliorée. Le Sèmè City Open Park est un lieu où l’on fabrique des objets, mais surtout des possibles. Ce travail s’inscrit dans cette dynamique : un outil au service d’un projet profondément humain, destiné, espérons-le, à devenir durablement utile à cette promesse.
 
 # Sources
 
+## Les données
+
+SMART SCOP. (2025). Base de données de fréquentation et d’usages du Sèmè City Open Park.
+
+
+## Référence culturelle et épistémologique
+
+ARTE. (2019). L’homme n’est pas unique [Documentaire].
+→ Référence mobilisée pour illustrer la distinction entre univers observable et réalité totale, en lien avec les limites de l’étude.
 
 
 \newpage
-
+\includepdf{medias/the_end.pdf}
 

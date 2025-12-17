@@ -397,6 +397,7 @@ if(t_test_sexe$p.value < 0.05) {
   cat("  ✗ Pas de différence significative\n")
 }
 
+print(t_test_sexe)
 
 # 6.3 Impact de la ville
 impact_ville <- data_visites_enrichi %>%
