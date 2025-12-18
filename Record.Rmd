@@ -107,9 +107,7 @@ Cette étude vise à comprendre et à améliorer la fréquentation du Sèmè Cit
 
 L’analyse montre que la fréquentation du SCOP n’est ni aléatoire ni uniquement conditionnée par les infrastructures ou la programmation. Elle est structurée par des dynamiques internes fortes : un noyau réduit d’usagers très engagés, des rythmes temporels marqués, une attractivité spatiale inégale et un point de bascule décisif situé dès la première visite.
 
-En mobilisant des analyses descriptives, comportementales et une modélisation multivariée (Random Forest expliquant près de 70 % de la variance observée), l’étude identifie des facteurs d’influence hiérarchisés, majoritairement maîtrisables par le parc. Ces résultats permettent de formuler des préconisations stratégiques concrètes, orientées vers l’activation de l’existant plutôt que la croissance externe.
-
-L’enjeu principal n’est donc pas d’attirer toujours plus d’usagers, mais de mieux accueillir, mieux orienter et mieux fidéliser ceux qui franchissent déjà les portes du Sèmè City Open Park.
+En mobilisant des analyses descriptives, comportementales et une modélisation multivariée (Random Forest expliquant près de 70 % de la variance observée), l’étude identifie des facteurs d’influence hiérarchisés, majoritairement maîtrisables par le parc. Ces résultats permettent de formuler des préconisations stratégiques concrètes, orientées vers l’activation de l’existant plutôt que la croissance externe. L’enjeu principal n’est donc pas d’attirer toujours plus d’usagers, mais de mieux accueillir, mieux orienter et mieux fidéliser ceux qui franchissent déjà les portes du Sèmè City Open Park.
 
 
 ## Vers une qualification des usagers du Sèmè City Open Park
@@ -134,14 +132,11 @@ Les renseignements issus de l’analyse convergent vers un constat clair : les l
 
 Trois axes prioritaires peuvent être activés immédiatement :
 
-- 1. Sécuriser la première visite
-La rétention initiale constitue le levier le plus critique. Structurer l’onboarding, clarifier le parcours d’accueil et instaurer un suivi systématique après la première visite permettrait de transformer une part significative des visiteurs occasionnels en usagers récurrents.
+- 1. Sécuriser la première visite : La rétention initiale constitue le levier le plus critique. Structurer l’onboarding, clarifier le parcours d’accueil et instaurer un suivi systématique après la première visite permettrait de transformer une part significative des visiteurs occasionnels en usagers récurrents.
 
-- 2. Rééquilibrer l’usage des espaces
-La fréquentation actuelle repose sur un nombre limité d’espaces. Encourager la découverte et la circulation entre espaces existants permettrait d’augmenter la fréquentation globale sans accroître la pression sur les zones déjà saturées.
+- 2. Rééquilibrer l’usage des espaces : La fréquentation actuelle repose sur un nombre limité d’espaces. Encourager la découverte et la circulation entre espaces existants permettrait d’augmenter la fréquentation globale sans accroître la pression sur les zones déjà saturées.
 
-- 3. Exploiter les temps faibles sans dégrader l’expérience
-Certains jours et créneaux horaires présentent un fort potentiel latent. Des activations légères et ciblées permettraient de lisser la fréquentation dans le temps, en optimisant l’usage de la capacité existante.
+- 3. Exploiter les temps faibles sans dégrader l’expérience : Certains jours et créneaux horaires présentent un fort potentiel latent. Des activations légères et ciblées permettraient de lisser la fréquentation dans le temps, en optimisant l’usage de la capacité existante.
 
 Les simulations montrent qu’en combinant ces actions, le parc pourrait théoriquement générer un volume de fréquentation nettement supérieur à l’existant. Ces résultats doivent être compris non comme des prévisions mécaniques, mais comme l’expression d’un potentiel latent aujourd’hui sous-exploité.
 
@@ -180,7 +175,7 @@ n_vars_data_usagers_raw <- ncol(data_usagers_raw)
 
 ```
 
-Cette étude repose sur 03 sources de données principales. La première, SMART SCOP, un logiciel interne au SCOP qui nous aide à retracer les flux d'entrée sortie du SCOP. C'est le régistre numérique qu'utilisent les usagers lorsqu'ils visitent le Sèmè City Open Park. De cet outil, nous avons extrait au format excel, deux bases essentielles : 
+Cette étude repose sur 02 sources de données principales. La première, SMART SCOP, un logiciel interne au SCOP qui nous aide à retracer les flux d'entrée sortie du SCOP. C'est le régistre numérique qu'utilisent les usagers lorsqu'ils visitent le Sèmè City Open Park. De cet outil, nous avons extrait au format excel, deux bases essentielles : 
 
 - data_presences_raw, qui contient contient `r n_obs_data_presence_raw` observations et 
 `r n_vars_data_presence_raw` variables. Ces données renseignent sur les passages mesurés au sein du parc ;
@@ -294,9 +289,7 @@ Pour la modélisation prédictive et le machine learning, l'environnement intèg
 
 # Bienvenu au Sèmè City Open Park
 
-Sèmè City est l'un des projets phares du gouvernement béninois qui entend développer une économie du savoir dynamique et inclusive. Sèmè City se positionne comme un hub incontournable dédié à la formation, la recherche et l'innovation ainsi qu'à l'incubation et la création d'entreprises innovantes. Le Bénin souhaite ainsi former une nouvelle génération de talents, les équiper pour l'avenir et favoriser un modèle de croissance inclusive et durable fondé sur « l' innovation Made in Africa (IMA) ».
-
-Sèmè City est conçu et mis en œuvre par I' Agence de Développement de Sèmè City (ADSC), établissement public doté de la personnalité morale et de l'autonomie financière. L'ADSC développe un cadre favorable et attractif pour différent.e.s opérateur.trice.s et partenaires dans le but de construire cet écosystème d'innovation, créateur de richesses et d'emplois. L'objectif d'ici 2030 est de créer plus de 100000 emplois, dont plus d'un tiers d'auto-emplois et 40% par des femmes.
+Sèmè City est l'un des projets phares du gouvernement béninois qui entend développer une économie du savoir dynamique et inclusive. Sèmè City se positionne comme un hub incontournable dédié à la formation, la recherche et l'innovation ainsi qu'à l'incubation et la création d'entreprises innovantes. Le Bénin souhaite ainsi former une nouvelle génération de talents, les équiper pour l'avenir et favoriser un modèle de croissance inclusive et durable fondé sur « l' innovation Made in Africa (IMA) ». Sèmè City est conçu et mis en œuvre par I' Agence de Développement de Sèmè City (ADSC), établissement public doté de la personnalité morale et de l'autonomie financière. L'ADSC développe un cadre favorable et attractif pour différent.e.s opérateur.trice.s et partenaires dans le but de construire cet écosystème d'innovation, créateur de richesses et d'emplois. L'objectif d'ici 2030 est de créer plus de 100000 emplois, dont plus d'un tiers d'auto-emplois et 40% par des femmes.
 
 
 ```{r}
@@ -314,6 +307,7 @@ knitr::include_graphics("medias/3d_workshop.JPG")
 ```
 
 Le SCOP repose sur trois piliers fondamentaux :
+
 - Démocratisation des nouvelles technologies : Sensibiliser et former à la Conception Assistée par Ordinateur (CAO/FAO) à travers des ateliers interactifs et des démonstrations, accessibles dès 8 ans.
 - Prototypage numérique et fabrication rapide : Accompagner les porteurs de projets dans la transformation d'idées en prototypes fonctionnels grâce à un accès aux équipements de pointe.
 - Communauté et collaboration : Favoriser les échanges entre innovateurs de tous horizons, en créant un écosystème de partage via des espaces de coworking, des événements et des rencontres inspirantes.
@@ -529,7 +523,7 @@ Cette concentration pose question sur la découvrabilité et la polyvalence de l
 
 ## Formulation des hypothèses de recherche
 
-La cartographie de la fréquentation du Sèmè City Open Park, plusieurs régularités fortes émergent. Ces constats empiriques permettent de formuler trois hypothèses de recherche structurantes, qui guideront l’analyse des facteurs d’influence et la discussion des résultats.
+De la cartographie de la fréquentation du Sèmè City Open Park, plusieurs régularités fortes émergent. Ces constats empiriques permettent de formuler trois hypothèses de recherche structurantes, qui guideront l’analyse des facteurs d’influence et la discussion des résultats.
 
 ### La fréquentation du parc est principalement déterminée par des dynamiques internes au lieu
 
@@ -583,7 +577,7 @@ importance_vars <- tibble::tibble(
   ),
   `%IncMSE` = c(35.317, 19.884, 11.688, 5.887, 5.607),
   IncNodePurity = c(47969, 20350, 15456, 2229, 13060),
-  Importance_relative = c(35.005, 19.709, 11.584, 5.835, 5.558),
+  ImportanceRelative = c(35.005, 19.709, 11.584, 5.835, 5.558),
   Catégorie = c(
     "Démographique",
     "Comportemental",
@@ -638,15 +632,15 @@ importance_cat <- tibble::tibble(
     "Comportemental",
     "Temporel"
   ),
-  Importance_Totale = c(37.3, 26.5, 24.0, 13.1),
-  Nb_Variables = c(3, 5, 3, 5),
+  ImportanceTotale = c(37.3, 26.5, 24.0, 13.1),
+  NombreVariables = c(3, 5, 3, 5),
   Pourcentage = c(36.9, 26.3, 23.8, 13.0)
 )
 
 importance_cat %>%
   arrange(desc(Pourcentage)) %>%
   kable(
-    caption = "Répartition de l’importance des variables par catégorie",
+    caption = "Répartition de l’importance des 16 variables explicatives par catégorie",
     digits = 1,
     booktabs = TRUE,
     align = "lrrr"
@@ -662,19 +656,40 @@ importance_cat %>%
 
 Les facteurs historiques, traduisant l’inertie de fréquentation à court et moyen terme, représentent 26,3 % de l’importance globale, confirmant l’existence d’un effet mémoire significatif. Les facteurs temporels, bien que statistiquement significatifs en analyse univariée, ne contribuent qu’à 13 % de l’explication une fois les dynamiques internes prises en compte. Enfin, les variables démographiques hors arrivée de nouveaux usagers présentent un impact marginal, voire nul, soulignant que le renouvellement des usagers importe davantage que leurs caractéristiques individuelles.
 
+## Analyse des Partial Dependance Plots (PDP)
+
+Afin d’interpréter les relations non linéaires apprises par le modèle de Random Forest, des Partial Dependence Plots (PDP) ont été utilisés. Ces graphiques représentent l’effet marginal moyen d’une variable explicative sur la fréquentation prédite, toutes choses égales par ailleurs.
+
 ```{r}
 knitr::include_graphics("outputs/figures/pdp_grid_top4.png")
 ```
 
 
-Afin d’interpréter les relations non linéaires apprises par le modèle de Random Forest, des Partial Dependence Plots (PDP) ont été utilisés. Ces graphiques représentent l’effet marginal moyen d’une variable explicative sur la fréquentation prédite, toutes choses égales par ailleurs.
+### Nombre de nouveaux usagers (nb_nouveaux_usagers)
+
+Le PDP montre une relation fortement croissante entre l’arrivée de nouveaux usagers et la fréquentation quotidienne. L’effet est quasi linéaire jusqu’à environ 50 nouveaux usagers, puis tend à se stabiliser. Ce palier suggère un effet de saturation progressive, indiquant que l’impact marginal de chaque nouvel usager diminue au-delà d’un certain seuil. Ce résultat confirme que l’acquisition de nouveaux usagers est un levier structurant, mais qu’elle doit être accompagnée de mécanismes de rétention pour maintenir son efficacité.
+
+### Nombre d’espaces actifs (nb_espaces_actifs)
+
+L’impact du nombre d’espaces actifs est marqué et non linéaire. Une rupture nette apparaît autour de 8 à 10 espaces actifs, au-delà de laquelle la fréquentation augmente significativement. Ce seuil suggère un effet de masse critique : tant qu’un nombre minimal d’espaces n’est pas activé simultanément, l’effet sur la fréquentation reste limité. L’activation coordonnée des espaces apparaît ainsi comme un levier clé de dynamisation du parc.
+
+### Fréquentation récente (nb_visiteurs_ma7)
+
+Le PDP associé à la moyenne mobile sur 7 jours met en évidence un fort effet d’inertie. La fréquentation augmente rapidement lorsque la fréquentation récente dépasse un certain niveau, avant d’atteindre un plateau. Ce comportement confirme l’existence d’un mécanisme auto-renforçant : un parc déjà fréquenté a plus de chances de continuer à l’être, traduisant un effet d’entraînement social et organisationnel.
+
+### Jour de la semaine (jour_semaine_num)
+
+L’effet du jour de la semaine est plus modéré mais clairement structuré. La fréquentation augmente progressivement en milieu de semaine, atteint un maximum en fin de semaine ouvrée, puis décroît. Ce profil confirme que les rythmes hebdomadaires influencent la fréquentation, mais de manière secondaire par rapport aux dynamiques internes du parc.
+
+
+Pris ensemble, les PDP montrent que la fréquentation du Sèmè City Open Park est principalement gouvernée par des effets de seuil, d’inertie et de saturation, caractéristiques de dynamiques endogènes. Les leviers les plus puissants ne résident pas dans des facteurs exogènes fixes, mais dans la capacité du parc à activer suffisamment d’usagers, d’espaces et de dynamique collective simultanément.
 
 Ces performances indiquent une capacité explicative élevée dans un contexte réel fortement bruité. Elles confirment que la fréquentation du Sèmè City Open Park est largement gouvernée par des dynamiques internes mesurables, tout en laissant subsister une part résiduelle liée à des facteurs non observés.
 
 
 \newpage
 
-# Discussion : Hypothèses et Résultats
+# Discussion des hypothèses et conclusions de l'étude
 
 Les trois hypothèses convergent vers un diagnostic commun : le principal levier d’amélioration de la fréquentation réside dans l’activation intelligente des usagers existants, bien plus que dans l’acquisition de nouveaux publics.
 
@@ -876,12 +891,12 @@ Cette étude constitue une première brique vers un pilotage du SCOP fondé sur 
 
 ## Les données
 
-SMART SCOP. (2025). Base de données de fréquentation et d’usages du Sèmè City Open Park.
+- SMART SCOP. (2025). Base de données de fréquentation et d’usages du Sèmè City Open Park.
 
 
 ## Référence culturelle et épistémologique
 
-ARTE. (2019). L’homme n’est pas unique [Documentaire].
+- ARTE. (2019). L’homme n’est pas unique [Documentaire].
 → Référence mobilisée pour illustrer la distinction entre univers observable et réalité totale, en lien avec les limites de l’étude.
 
 
